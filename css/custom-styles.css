@@ -1,0 +1,117 @@
+@import url("../assets/fonts/google-fonts.css");
+
+:root {
+  /* Colors */
+  color-scheme: dark;
+  --color-background: #0b132b;
+  --color-surface: #1c2541;
+  --color-section: #101a34;
+  --color-hover-surface: #253151;
+  --color-accent: #ffb703;
+  --color-focus: var(--color-accent);
+  --color-primary-button-hover: #ffc533;
+  --color-primary-button-pressed: #e6a500;
+  --color-on-accent: #0b132b;
+  --color-text: #f5f7fb;
+  --color-text-secondary: #b8c2d6;
+  --color-success: #06d6a0;
+  --color-error: #ff6b6b;
+  --color-border-decorative: #3b4969;
+  --color-border-interactive: #7282a3;
+  --color-reserved-light: #faf8f5;
+
+  /* Typography */
+  --font-primary: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size-h1: 48px;
+  --line-height-h1: 60px;
+  --font-size-h2: 32px;
+  --line-height-h2: 40px;
+  --font-size-h3: 24px;
+  --line-height-h3: 32px;
+  --font-size-h4: 20px;
+  --line-height-h4: 28px;
+  --font-size-body: 18px;
+  --line-height-body: 28px;
+  --font-size-small: 16px;
+  --line-height-small: 24px;
+  --font-size-caption: 14px;
+  --line-height-caption: 20px;
+
+  /* Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+
+  /* Border radius */
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --radius-container: 24px;
+
+  /* Shadows */
+  --shadow-default: none;
+  --shadow-low: 0 2px 8px rgb(0 0 0 / 12%);
+  --shadow-raised: 0 8px 24px rgb(0 0 0 / 16%);
+
+  /* Container */
+  --container-max-width: 1248px;
+  --container-gutter: 24px;
+
+  /* Transitions */
+  --transition-fast: 120ms;
+  --transition-standard: 180ms;
+  --transition-slow: 250ms;
+
+  /* Icons */
+  --icon-size: 24px;
+  --icon-color: currentColor;
+}
+
+/* Stateful controls for the decorative Hero media; no layout styling here. */
+[data-hero-controls][hidden],
+[data-hero-video][hidden] {
+  display: none;
+}
+[data-hero-mode="video"] [data-hero-photo] {
+  visibility: hidden;
+}
+[data-hero-choice][aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+[data-hero-choice][aria-pressed="false"]:hover {
+  background: var(--color-hover-surface);
+}
+
+/* Keep only brand definitions and cross-element/browser-specific states here. */
+[data-quiz-option]:has(input:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-hover-surface);
+}
+[data-quiz-option]:has(input:focus-visible) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+/* Two attribute selectors beat .flex, unlike Preflight's [hidden]. */
+[data-demo-card][hidden] {
+  display: none;
+}
+input:disabled,
+textarea:disabled {
+  -webkit-text-fill-color: var(--color-text-secondary);
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

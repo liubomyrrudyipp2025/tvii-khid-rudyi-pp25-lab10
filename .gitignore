@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+# Private work must remain outside this repository.
+docs/
+evidence/
+матеріали/
+*.docx
+*.pdf
+*.zip
+playwright-report/
+test-results/

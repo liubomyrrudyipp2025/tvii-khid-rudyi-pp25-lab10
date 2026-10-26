@@ -1,0 +1,21 @@
+{
+  "name": "tvii-khid-lab10-media",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Навчальний лендинг «Твій Хід» — ЛР10: динамічні медіакомпоненти та успадкована навчальна форма",
+  "scripts": {
+    "format": "prettier --write index.html css/custom-styles.css css/media-components.css js/demo.js js/media-components.js tailwind.config.cjs scripts/*.cjs",
+    "format:check": "prettier --check index.html css/custom-styles.css css/media-components.css js/demo.js js/media-components.js tailwind.config.cjs scripts/*.cjs",
+    "build": "node scripts/build.cjs",
+    "package:dist": "npm run build && node scripts/package-dist.cjs",
+    "test": "python -m unittest discover -s tests -v"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17",
+    "prettier": "3.6.2",
+    "prettier-plugin-tailwindcss": "0.6.14"
+  }
+}

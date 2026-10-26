@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <title>Час у Львові</title>
+    <link rel="stylesheet" href="../css/custom-styles.css" />
+    <link rel="stylesheet" href="../css/tailwind.css" />
+    <script src="./clock.js" defer></script>
+  </head>
+  <body class="m-0 bg-surface font-mono text-primary">
+    <main
+      class="mx-auto flex min-h-40 max-w-full flex-col justify-center gap-2 overflow-hidden p-4"
+    >
+      <h1 class="sr-only">Поточний час у Львові</h1>
+      <span
+        id="Lviv_z713"
+        class="block max-w-full break-words text-4xl tabular-nums"
+        aria-live="off"
+        >Завантаження…</span
+      >
+      <a
+        id="time_is_link"
+        class="w-fit text-sm underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        href="https://time.is/Lviv"
+        rel="nofollow noopener"
+        target="_blank"
+        >Час на Time.is</a
+      >
+    </main>
+  </body>
+</html>

@@ -1,0 +1,376 @@
+/* Hermes: isolated Bolt component styles; no global font/reset/overflow masking. */
+:root {
+  --tx-bg: var(--color-background);
+  --tx-surface: var(--color-surface);
+  --tx-text: var(--color-text);
+  --tx-muted: var(--color-text-secondary);
+  --tx-accent: var(--color-accent);
+  --tx-mint: var(--color-success);
+}
+/* ===== Картка відгуку ===== */
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  background-color: var(--tx-surface);
+  border: 1px solid rgba(245, 247, 250, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Аватар-ініціал (без сторонніх фото) */
+.review-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: var(--tx-accent);
+  color: var(--tx-bg);
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Рейтинг 5 зірок з текстовою назвою */
+.review-rating {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--tx-accent);
+}
+
+.review-text {
+  margin: 0;
+  color: var(--tx-muted);
+  font-size: 0.95rem;
+}
+
+/* ===== Swiper: пагінація, кнопки ===== */
+.reviews-swiper {
+  padding: 0.5rem 0.25rem 3rem; /* місце під пагінацію */
+}
+
+.reviews-pagination.swiper-pagination {
+  position: relative;
+  bottom: 0;
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.reviews-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: var(--tx-muted);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.reviews-pagination .swiper-pagination-bullet-active {
+  background-color: var(--tx-accent);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Кнопки Попередній / Наступний */
+.reviews-button-prev,
+.reviews-button-next {
+  color: var(--tx-accent) !important;
+  --swiper-navigation-size: 28px;
+  background-color: rgba(11, 19, 43, 0.6);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-button-prev::after,
+.reviews-button-next::after {
+  font-size: 1rem;
+}
+
+/* ===== Доступність: видимий keyboard focus ===== */
+.reviews-button-prev:focus-visible,
+.reviews-button-next:focus-visible,
+.swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 3px;
+}
+
+.lab3-gallery-item:focus-visible,
+#reviews button:focus-visible,
+#typingToggle:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 2px;
+}
+
+/* Маленькі декоративні крапки-акценти */
+.reviews-swiper::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--tx-mint);
+  opacity: 0.7;
+}
+
+/* ===== Swiper: кнопка #reviewsToggle ===== */
+
+/* [hidden] не перекривається display:inline-flex */
+#reviews [hidden],
+#typingToggle[hidden] {
+  display: none !important;
+}
+
+.reviews-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.reviews-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(245, 247, 250, 0.2);
+  background-color: transparent;
+  color: var(--tx-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.reviews-toggle:hover {
+  border-color: var(--tx-accent);
+  color: var(--tx-accent);
+}
+
+.reviews-toggle:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 3px;
+}
+
+.reviews-toggle[aria-pressed="true"] {
+  border-color: var(--tx-mint);
+  color: var(--tx-mint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-toggle {
+    transition: none;
+  }
+}
+
+/* ===== Offline/CDN-failure fallback: статична сітка карток ===== */
+/* Якщо Swiper не ініціалізувався — показуємо картки сіткою,
+   не ховаємо нічого і не залишаємо непрацюючі стрілки. */
+.reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  overflow: visible;
+  transform: none !important;
+}
+
+@media (min-width: 768px) {
+  .reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.reviews-swiper:not(.swiper-initialized) .swiper-slide {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+/* Ховаємо стрілки та пагінацію у fallback-режимі */
+.reviews-swiper:not(.swiper-initialized) .reviews-button-prev,
+.reviews-swiper:not(.swiper-initialized) .reviews-button-next,
+.reviews-swiper:not(.swiper-initialized) .reviews-pagination {
+  display: none !important;
+}
+
+/* ===== Галерея графіки ЛР3 ===== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.lab3-gallery-item {
+  display: block;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(245, 247, 250, 0.12);
+  border-radius: 1.25rem;
+  background-color: var(--tx-bg);
+  color: var(--tx-text);
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.lab3-gallery-item:hover {
+  border-color: var(--tx-accent);
+  transform: translateY(-2px);
+}
+
+.lab3-gallery-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background-color: var(--tx-bg);
+}
+
+.gallery-caption {
+  display: block;
+  padding: 0.75rem 1rem 1rem;
+  color: var(--tx-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.lab3-gallery-item:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 4px;
+}
+
+/* GLightbox controls stay visible against both supplied image themes. */
+.glightbox-container .gclose,
+.glightbox-container .gnext,
+.glightbox-container .gprev {
+  z-index: 3;
+  opacity: 1;
+  color: var(--tx-text);
+  background-color: rgba(11, 19, 43, 0.86);
+}
+
+/* Кнопки мають залишатися доступними й на touch-ширинах. */
+#glightbox-body .gnext,
+#glightbox-body .gprev {
+  top: 45%;
+  width: 44px;
+  height: 44px;
+}
+
+/* Не показувати порожні provider-шаблони до заповнення title. */
+#glightbox-body .gslide:not(.loaded) {
+  visibility: hidden;
+}
+
+/* Непрозорий caption з узгодженою темою на desktop і mobile. */
+#glightbox-body .gslide-description {
+  background: var(--tx-surface);
+  color: var(--tx-text);
+}
+#glightbox-body .gslide-title,
+#glightbox-body .gslide-desc {
+  color: var(--tx-text);
+}
+
+.glightbox-container .gclose:focus-visible,
+.glightbox-container .gnext:focus-visible,
+.glightbox-container .gprev:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab3-gallery-item {
+    transition: none;
+  }
+}
+
+/* ===== Typed.js блок ===== */
+
+/* Рядок з анімованим текстом */
+.typed-hero {
+  margin: 0.75rem auto 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--tx-muted);
+  /* Резервуємо достатньо місця для найдовшої фрази, щоб 320px не давав горизонтального переповнення */
+  min-height: 1.8em;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Курсор Typed вирівнюємо по кольору акценту */
+.typed-cursor {
+  color: var(--tx-accent);
+}
+
+/* Кнопка паузи/відновлення анімації */
+.typing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(245, 247, 250, 0.2);
+  background-color: transparent;
+  color: var(--tx-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.typing-toggle:hover {
+  border-color: var(--tx-accent);
+  color: var(--tx-accent);
+}
+
+.typing-toggle:focus-visible {
+  outline: 3px solid var(--tx-mint);
+  outline-offset: 3px;
+}
+
+.typing-toggle[aria-pressed="true"] {
+  border-color: var(--tx-mint);
+  color: var(--tx-mint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-toggle {
+    transition: none;
+  }
+}

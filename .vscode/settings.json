@@ -1,0 +1,12 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1200,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "liveServer.settings.host": "127.0.0.1",
+  "liveServer.settings.port": 5510,
+  "liveServer.settings.NoBrowser": true,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "git.autofetch": false,
+  "workbench.quickOpen.closeOnFocusLost": false
+}
