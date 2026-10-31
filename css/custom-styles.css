@@ -8,6 +8,8 @@
   --color-section: #101a34;
   --color-hover-surface: #253151;
   --color-accent: #ffb703;
+  --color-accent-text: #ffb703;
+  --color-success-text: #06d6a0;
   --color-focus: var(--color-accent);
   --color-primary-button-hover: #ffc533;
   --color-primary-button-pressed: #e6a500;
@@ -72,13 +74,189 @@
   --icon-color: currentColor;
 }
 
-/* Stateful controls for the decorative Hero media; no layout styling here. */
+/* Light palette from the original design; semantic ink keeps gold/teal readable. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-background: #faf8f5;
+  --color-surface: #ffffff;
+  --color-section: #f0ede6;
+  --color-hover-surface: #e6e4df;
+  --color-text: #0b132b;
+  --color-text-secondary: #424c63;
+  --color-accent-text: #805600;
+  --color-success-text: #00694e;
+  --color-error: #b42332;
+  --color-focus: #805600;
+  --color-border-decorative: #cdc8bd;
+  --color-border-interactive: #727683;
+}
+:root[data-theme="light"] :focus-visible,
+:root[data-theme="light"] #reviews button:focus-visible,
+:root[data-theme="light"] #typingToggle:focus-visible,
+:root[data-theme="light"] :focus-within {
+  outline-color: var(--color-focus);
+}
+.theme-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-interactive);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  background: var(--color-surface);
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.theme-toggle[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.bg-accent.text-background,
+.focus\:bg-accent.focus\:text-background:focus {
+  color: var(--color-on-accent);
+}
+[data-theme="light"] .text-accent,
+[data-theme="light"] .hover\:text-accent:hover {
+  color: var(--color-accent-text);
+}
+[data-theme="light"] .text-success {
+  color: var(--color-success-text);
+}
+/* Success text and field boundaries need semantic contrast on light surfaces. */
+[data-theme="light"] #feedbackForm p[data-state="success"] {
+  color: var(--color-success-text);
+}
+[data-theme="light"] #feedbackForm :is(input, textarea)[data-state="success"] {
+  border-color: var(--color-success-text);
+}
+[data-theme="light"] .review-avatar {
+  color: var(--color-on-accent);
+}
+[data-theme="light"] .review-rating {
+  color: var(--color-accent-text);
+}
+[data-theme="light"] .reviews-toggle,
+[data-theme="light"] .typing-toggle {
+  border-color: var(--color-border-interactive);
+}
+[data-theme="light"] .reviews-toggle:hover,
+[data-theme="light"] .typing-toggle:hover {
+  color: var(--color-accent-text);
+}
+[data-theme="light"] .reviews-toggle[aria-pressed="true"],
+[data-theme="light"] .typing-toggle[aria-pressed="true"] {
+  color: var(--color-success-text);
+  border-color: var(--color-success-text);
+}
+
+/* Decorative Hero controls and source-preserving frame/anchor consistency. */
 [data-hero-controls][hidden],
 [data-hero-video][hidden] {
   display: none;
 }
 [data-hero-mode="video"] [data-hero-photo] {
   visibility: hidden;
+}
+:root:not([data-theme="light"]) [data-hero-light-photo],
+[data-theme="light"] [data-hero-dark-photo] {
+  display: none;
+}
+/* Keep the photo action's layout slot while video plays; [hidden] stays hidden. */
+[data-hero-mode="video"] .illustration-trigger:not([hidden]) {
+  display: inline-flex;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Source-coordinate calibration of the box base at t=0, not moving artwork.
+ * Visible background bands are intentional; all mobile sources stay whole. */
+[data-hero-media] {
+  container-type: size;
+}
+@media (max-width: 767px) {
+  /* One native portrait frame in both themes/modes; keep every source intact. */
+  [data-hero-media] {
+    height: auto;
+    bottom: auto;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+  }
+  [data-hero-media] :is([data-hero-photo] img, [data-hero-video]) {
+    position: absolute;
+    inset: auto;
+    left: calc(100cqw * var(--hero-x, 0));
+    top: calc(100cqw * var(--hero-y, 0));
+    width: calc(100cqw * var(--hero-scale, 1));
+    height: auto;
+    max-width: none;
+    object-fit: contain;
+    object-position: 50% 0%;
+  }
+  [data-hero-video] {
+    aspect-ratio: 9 / 16;
+  }
+  [data-hero-light-photo] img {
+    --hero-scale: 0.8676892933;
+    --hero-x: 0.0661537208;
+    --hero-y: 0.0170486279;
+  }
+  :root:not([data-theme="light"]) [data-hero-video] {
+    --hero-scale: 0.886316241;
+    --hero-x: 0.085069876;
+    --hero-y: 0.0074245519;
+  }
+  :root[data-theme="light"] [data-hero-video] {
+    --hero-scale: 0.8847672325;
+    --hero-x: 0.0862762258;
+    --hero-y: 0.007888992;
+  }
+}
+/* Retain the existing desktop cover canvas and breakpoint-dependent anchor.
+ * Each source is uniformly projected into that canvas; desktop clipping remains. */
+@media (min-width: 768px) {
+  [data-hero-media] :is([data-hero-photo] img, [data-hero-video]) {
+    --hero-canvas-width: max(100cqw, calc(100cqh * 1376 / 768));
+    --hero-anchor-x: 0.65;
+    position: absolute;
+    inset: auto;
+    left: calc(
+      (100cqw - var(--hero-canvas-width)) * var(--hero-anchor-x) +
+        var(--hero-canvas-width) * var(--hero-x, 0)
+    );
+    top: calc(
+      (100cqh - var(--hero-canvas-width) * 768 / 1376) * 0.5 + var(--hero-canvas-width) *
+        var(--hero-y, 0)
+    );
+    width: calc(var(--hero-canvas-width) * var(--hero-scale, 1));
+    height: auto;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: 50% 0%;
+  }
+  [data-hero-light-photo] img {
+    --hero-scale: 1.0096529369;
+    --hero-x: -0.0076002633;
+    --hero-y: -0.0042519169;
+  }
+  :root:not([data-theme="light"]) [data-hero-video] {
+    --hero-scale: 0.9913542202;
+    --hero-x: 0.0042617934;
+    --hero-y: 0.0006758178;
+  }
+  :root[data-theme="light"] [data-hero-video] {
+    --hero-scale: 1.0175176298;
+    --hero-x: -0.0102981742;
+    --hero-y: -0.0076821685;
+  }
+}
+@media (min-width: 1024px) {
+  [data-hero-media] :is([data-hero-photo] img, [data-hero-video]) {
+    --hero-anchor-x: 0.5;
+  }
 }
 [data-hero-choice][aria-pressed="true"] {
   background: var(--color-accent);
@@ -90,7 +268,7 @@
 
 /* Keep only brand definitions and cross-element/browser-specific states here. */
 [data-quiz-option]:has(input:checked) {
-  border-color: var(--color-accent);
+  border-color: var(--color-focus);
   background: var(--color-hover-surface);
 }
 [data-quiz-option]:has(input:focus-visible) {

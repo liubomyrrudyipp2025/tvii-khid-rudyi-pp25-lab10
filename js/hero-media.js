@@ -1,4 +1,4 @@
-/* User-selected decorative Hero; real portrait/landscape assets, never autoplay. */
+/* User-selected decorative Hero. Photo first; no video request before opt-in. */
 (() => {
   "use strict";
   const hero = document.querySelector("[data-hero-scene]");
@@ -11,10 +11,11 @@
   let desired = "photo";
   let inView = true;
   let attempt = 0;
-  const update = (mode, message = "") => {
-    hero.dataset.heroMode = mode;
+  const canPlay = () => desired === "video" && !document.hidden && inView;
+  const update = (message = "") => {
+    hero.dataset.heroMode = desired;
     buttons.forEach((b) =>
-      b.setAttribute("aria-pressed", String(b.dataset.heroChoice === mode)),
+      b.setAttribute("aria-pressed", String(b.dataset.heroChoice === desired)),
     );
     statuses.forEach((s) => {
       s.textContent = message;
@@ -25,36 +26,46 @@
     attempt += 1;
     video.pause();
     video.hidden = true;
-    update("photo", message);
+    update(message);
   };
-  const animate = async () => {
-    desired = "video";
+  const sync = async () => {
     const currentAttempt = ++attempt;
+    if (desired !== "video") return;
+    const light = document.documentElement.dataset.theme === "light";
+    const src = light
+      ? phone.matches
+        ? video.dataset.srcLightMobile
+        : video.dataset.srcLight
+      : phone.matches
+        ? video.dataset.srcMobile
+        : video.dataset.src;
+    video.poster = light
+      ? phone.matches
+        ? video.dataset.posterLightMobile
+        : video.dataset.posterLight
+      : phone.matches
+        ? video.dataset.posterMobile
+        : video.dataset.poster;
     video.muted = true;
     video.hidden = false;
-    const src = phone.matches ? video.dataset.srcMobile : video.dataset.src;
-    video.poster = phone.matches ? video.dataset.posterMobile : video.dataset.poster;
     if (video.getAttribute("src") !== src) {
       video.pause();
       video.src = src;
       video.load();
     }
-    // A breakpoint can change while the user is in the footer or another tab.
-    // Select the new source, but leave decoding paused until visibility resumes.
-    if (document.hidden || !inView) {
-      update("video");
+    update();
+    if (!canPlay()) {
+      video.pause();
       return;
     }
     try {
       await video.play();
+      // A pending play may resolve after photo/offscreen/visibility changes.
+      // Never stop a newer valid video request because an older one completed.
+      if (!canPlay()) video.pause();
       if (currentAttempt !== attempt) return;
-      if (desired !== "video") {
-        video.pause();
-        return;
-      }
-      update("video");
     } catch {
-      if (currentAttempt === attempt && desired === "video")
+      if (currentAttempt === attempt && canPlay())
         photo("Відео недоступне. Залишено статичний фон.");
     }
   };
@@ -62,33 +73,25 @@
     c.hidden = false;
   });
   buttons.forEach((b) =>
-    b.addEventListener("click", () =>
-      b.dataset.heroChoice === "video" ? animate() : photo(),
-    ),
+    b.addEventListener("click", () => {
+      if (b.dataset.heroChoice === "photo") photo();
+      else {
+        desired = "video";
+        sync();
+      }
+    }),
   );
-  phone.addEventListener("change", () => {
-    if (desired === "video") animate();
-  });
+  phone.addEventListener("change", sync);
+  document.addEventListener("themechange", sync);
+  document.addEventListener("visibilitychange", sync);
   video.addEventListener("error", () => {
     if (desired === "video" && video.error)
       photo("Відео недоступне. Залишено статичний фон.");
   });
-  const visibility = () => {
-    if (desired !== "video") return;
-    if (document.hidden || !inView) video.pause();
-    else {
-      const currentAttempt = attempt;
-      video.play().catch(() => {
-        if (currentAttempt === attempt && desired === "video")
-          photo("Відео призупинено. Можна знову вибрати «Відео».");
-      });
-    }
-  };
-  document.addEventListener("visibilitychange", visibility);
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
-      visibility();
+      sync();
     }).observe(hero);
   }
   window

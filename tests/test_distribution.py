@@ -17,4 +17,11 @@ class FeedbackDistribution(unittest.TestCase):
         for name in ['js/media-components.js','css/media-components.css']:
             self.assertIn(name,paths,'Missing media runtime in actual distribution')
             self.assertEqual((ROOT/name).read_bytes(),(ROOT/'dist'/name).read_bytes())
+    def test_theme_runtime_and_credits_are_in_actual_distribution(self):
+        node=shutil.which('node');assert node is not None
+        result=subprocess.run([node,'scripts/package-dist.cjs'],cwd=ROOT,capture_output=True,text=True,encoding='utf-8',check=True)
+        paths={item['path'] for item in json.loads(result.stdout)['files']}
+        for name in ['js/theme.js','CREDITS.md']:
+            self.assertIn(name,paths,'New theme and third-party credits must not disappear in production')
+            self.assertEqual((ROOT/name).read_bytes(),(ROOT/'dist'/name).read_bytes())
 if __name__=='__main__':unittest.main()

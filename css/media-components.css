@@ -104,7 +104,6 @@
   outline-offset: 3px;
 }
 
-.lab3-gallery-item:focus-visible,
 #reviews button:focus-visible,
 #typingToggle:focus-visible {
   outline: 3px solid var(--tx-mint);
@@ -210,52 +209,81 @@
   display: none !important;
 }
 
-/* ===== Галерея графіки ЛР3 ===== */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.lab3-gallery-item {
-  display: block;
-  overflow: hidden;
+/* ===== Manual photo carousel; navigation never overlays readable content. ===== */
+.stock-swiper {
   min-width: 0;
-  border: 1px solid rgba(245, 247, 250, 0.12);
-  border-radius: 1.25rem;
-  background-color: var(--tx-bg);
-  color: var(--tx-text);
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
 }
-
-.lab3-gallery-item:hover {
-  border-color: var(--tx-accent);
-  transform: translateY(-2px);
-}
-
-.lab3-gallery-item img {
+.stock-swiper img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  background-color: var(--tx-bg);
+  height: auto;
+  aspect-ratio: 5192 / 3466;
+  object-fit: contain;
+  background: var(--tx-bg);
+  border-radius: 1rem;
 }
-
-.gallery-caption {
-  display: block;
-  padding: 0.75rem 1rem 1rem;
+.stock-swiper figcaption {
+  padding: 0.75rem 0;
   color: var(--tx-text);
-  font-size: 0.95rem;
-  font-weight: 600;
+}
+.stock-controls,
+.stock-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.stock-controls {
+  margin-top: 1rem;
+}
+.stock-controls[hidden] {
+  display: none;
+}
+.stock-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--color-border-interactive);
+  border-radius: var(--radius-control);
+  background: var(--tx-bg);
+  color: var(--tx-text);
+}
+.stock-pagination button[aria-pressed="true"] {
+  background: var(--tx-accent);
+  color: var(--color-on-accent);
+}
+.stock-controls button:focus-visible,
+.stock-swiper:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.stock-swiper:not(.swiper-initialized) {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+.stock-swiper:not(.swiper-initialized) .swiper-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
 }
 
-.lab3-gallery-item:focus-visible {
-  outline: 3px solid var(--tx-mint);
-  outline-offset: 4px;
+/* Hero illustration album is an action, not another grid of Hero thumbnails. */
+.illustration-trigger {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-interactive);
+  border-radius: var(--radius-control);
+  background: var(--tx-surface);
+  color: var(--tx-text);
+}
+.illustration-trigger[hidden],
+[data-hero-mode="video"] .illustration-trigger {
+  display: none;
+}
+.illustration-trigger:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 /* GLightbox controls stay visible against both supplied image themes. */
@@ -298,24 +326,6 @@
   outline-offset: 3px;
 }
 
-@media (min-width: 768px) {
-  .gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .gallery-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lab3-gallery-item {
-    transition: none;
-  }
-}
-
 /* ===== Typed.js блок ===== */
 
 /* Рядок з анімованим текстом */
@@ -324,11 +334,23 @@
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--tx-muted);
-  /* Резервуємо достатньо місця для найдовшої фрази, щоб 320px не давав горизонтального переповнення */
-  min-height: 1.8em;
+  display: grid;
   max-width: 100%;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+/* All full phrases share the live line's cell: font/width changes size it naturally. */
+.typed-hero > .typed-line,
+.typed-hero > .typed-reserve {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.typed-hero > .typed-reserve {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Курсор Typed вирівнюємо по кольору акценту */

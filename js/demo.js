@@ -53,7 +53,13 @@
     document.querySelectorAll("details[data-mobile-menu], details[data-service-menu]"),
   );
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
+    if (event.key !== "Escape" || event.defaultPrevented) return;
+    // A dialog/lightbox owns Escape while focus is inside that modal layer.
+    if (
+      event.target instanceof Element &&
+      event.target.closest("dialog[open], .glightbox-container")
+    )
+      return;
     const open = disclosures.filter((details) => details.open);
     if (!open.length) return;
     const active =

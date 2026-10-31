@@ -7,6 +7,8 @@ const site = path.resolve(__dirname, "..");
 const dist = path.join(site, "dist");
 const files = [
   "index.html",
+  "CREDITS.md",
+  "js/theme.js",
   "favicon.ico",
   "_headers",
   "css/tailwind.css",

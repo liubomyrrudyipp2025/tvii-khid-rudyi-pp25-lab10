@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="uk">
+<html lang="uk" class="desktop:scroll-pt-48">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0B132B" />
+    <script src="./js/theme.js"></script>
     <meta
       name="description"
       content="Навчальний прототип «Твій Хід»: концепція персонального підбору настільних ігор, демо першого вибору квізу та відеоматеріали. Замовлення й підписка не реалізовані."
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="./css/tailwind.css" />
     <link rel="stylesheet" href="./css/custom-styles.css" />
     <link rel="stylesheet" href="./css/media-components.css" />
+    <script src="./js/demo.js" defer></script>
     <script src="./js/hero-media.js" defer></script>
     <script src="./js/validation.js" defer></script>
   </head>
@@ -42,17 +44,20 @@
       Перейти до основного вмісту
     </a>
 
-    <header class="border-b border-decorative bg-background">
+    <header
+      class="relative z-40 border-b border-decorative bg-background desktop:sticky desktop:top-0"
+    >
       <div
         class="mx-auto flex max-w-[1248px] items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
       >
         <a
-          class="inline-flex min-h-11 min-w-0 shrink-0 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          class="inline-flex min-h-11 min-w-0 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent lg:shrink-0"
           href="#home"
           aria-label="Твій Хід — на головну"
         >
           <img
-            class="h-9 w-auto max-w-[144px]"
+            data-brand-logo
+            class="h-auto max-h-9 w-auto max-w-full"
             src="./assets/images/logo.svg"
             width="144"
             height="36"
@@ -61,7 +66,7 @@
         </a>
 
         <nav
-          class="hidden min-w-0 items-center gap-6 lg:flex"
+          class="hidden min-w-0 items-center gap-2 lg:flex"
           aria-label="Основна навігація"
         >
           <a
@@ -69,25 +74,57 @@
             href="#how-it-works"
             >Як це працює</a
           >
+          <details data-service-menu class="relative">
+            <summary
+              class="min-h-11 cursor-pointer rounded-control px-3 py-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              Сервіс
+            </summary>
+            <nav
+              aria-label="Розділи сервісу"
+              class="absolute left-0 top-full z-20 mt-2 flex w-64 flex-col gap-1 rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#benefits"
+                >Переваги</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#plans"
+                >Формати сервісу</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#about"
+                >Про сервіс</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#faq"
+                >Запитання й відповіді</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#smart-select"
+                >Керування Smart Select</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="#example"
+                >Демонстраційні приклади</a
+              >
+            </nav>
+          </details>
           <a
             class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            href="#benefits"
-            >Переваги</a
+            href="#feedback"
+            >Зворотний зв’язок</a
           >
           <a
             class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            href="#plans"
-            >Формати</a
-          >
-          <a
-            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            href="#about"
-            >Про сервіс</a
-          >
-          <a
-            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            href="#faq"
-            >FAQ</a
+            href="#contacts"
+            >Контакти</a
           >
         </nav>
 
@@ -98,7 +135,10 @@
           Підібрати гру
         </a>
 
-        <details class="relative shrink-0 lg:hidden">
+        <button id="themeToggle" type="button" class="theme-toggle" aria-pressed="false">
+          Світла тема
+        </button>
+        <details data-mobile-menu class="relative shrink-0 lg:hidden">
           <summary
             class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-control border border-interactive px-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
@@ -106,7 +146,7 @@
             <span aria-hidden="true" class="text-2xl leading-none">☰</span>
           </summary>
           <nav
-            class="absolute right-0 top-full z-20 mt-2 flex w-[min(18rem,calc(100vw-2rem))] flex-col gap-1 rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            class="absolute right-0 top-full z-20 mt-2 flex max-h-[calc(100dvh-6rem)] w-[min(18rem,calc(100vw-2rem))] flex-col gap-1 overflow-y-auto rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
             aria-label="Мобільна навігація"
           >
             <a
@@ -135,6 +175,26 @@
               >Запитання й відповіді</a
             >
             <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#smart-select"
+              >Керування Smart Select</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#example"
+              >Демонстраційні приклади</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#feedback"
+              >Зворотний зв’язок</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#contacts"
+              >Контакти — карта Львова</a
+            >
+            <a
               class="mt-2 inline-flex min-h-14 items-center justify-center rounded-control bg-accent px-4 py-3 font-semibold text-background transition duration-180 hover:bg-cta-hover hover:shadow-[shadow:var(--shadow-low)] focus-visible:shadow-[shadow:var(--shadow-low)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent active:bg-cta-pressed motion-reduce:transition-none"
               href="#quiz"
               >Підібрати гру</a
@@ -142,9 +202,29 @@
           </nav>
         </details>
       </div>
+      <div class="mx-auto flex max-w-[1248px] justify-end px-4 pb-3 sm:px-6 lg:px-8">
+        <a
+          href="#example"
+          aria-label="Демо-кошик: обрані приклади"
+          class="inline-flex min-h-11 items-center gap-2 rounded-control border border-interactive bg-surface px-4 py-2 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        >
+          Демо-кошик:
+          <span
+            data-cart-count
+            aria-live="polite"
+            aria-atomic="true"
+            class="font-semibold"
+            >0</span
+          ><span class="text-secondary">/ 3 приклади</span>
+        </a>
+      </div>
     </header>
 
-    <main id="main-content" class="min-w-0">
+    <main
+      id="main-content"
+      tabindex="-1"
+      class="min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+    >
       <section
         id="home"
         class="relative isolate min-w-0 overflow-hidden bg-background"
@@ -152,29 +232,56 @@
         data-hero-scene
         data-hero-mode="photo"
       >
-        <!-- Десктоп: оригінал ЛР3 16:9. Телефон: нова справжня генерація Gemini 9:16. -->
+        <!-- Окремі світлі/темні фото; відео завантажується тільки після вибору. -->
         <div
+          data-hero-media
           class="pointer-events-none absolute inset-0 h-[min(177.7778vw,40rem)] md:h-full"
           aria-hidden="true"
         >
-          <picture data-hero-photo class="absolute inset-0 h-full w-full">
+          <picture
+            data-hero-photo
+            data-hero-dark-photo
+            class="absolute inset-0 h-full w-full"
+          >
             <source
               media="(max-width: 767px)"
-              srcset="./assets/videos/hero-mobile-poster.webp"
-              width="720"
-              height="1280"
+              srcset="./assets/images/lab3/hero-dark-mobile.jpg"
+              width="928"
+              height="1152"
             />
             <img
               class="h-full w-full object-contain object-top md:object-cover md:object-[65%_center] lg:object-center"
-              src="./assets/videos/hero-poster.webp"
-              width="1280"
-              height="720"
+              src="./assets/images/lab3/hero-dark-desktop.jpg"
+              width="1376"
+              height="768"
               alt=""
+              fetchpriority="high"
+            />
+          </picture>
+          <picture
+            data-hero-photo
+            data-hero-light-photo
+            class="absolute inset-0 h-full w-full"
+          >
+            <source
+              media="(max-width: 767px)"
+              srcset="./assets/images/hero-light-mobile.webp"
+            />
+            <img
+              src="./assets/images/hero-light-desktop.webp"
+              width="1376"
+              height="768"
+              alt=""
+              class="h-full w-full object-contain object-top md:object-cover"
               fetchpriority="high"
             />
           </picture>
           <video
             data-hero-video
+            data-src-light="./assets/videos/hero-light.mp4"
+            data-src-light-mobile="./assets/videos/hero-light-mobile.mp4"
+            data-poster-light-mobile="./assets/videos/hero-light-mobile-poster.webp"
+            data-poster-light="./assets/videos/hero-light-poster.webp"
             data-src="./assets/videos/gemini_generated_video_34dc91d6.mp4"
             data-src-mobile="./assets/videos/hero-mobile.mp4"
             data-poster="./assets/videos/hero-poster.webp"
@@ -265,6 +372,15 @@
                 Як це працює
               </a>
             </div>
+            <button
+              id="heroIllustration"
+              type="button"
+              class="illustration-trigger"
+              aria-haspopup="dialog"
+              hidden
+            >
+              Збільшити ілюстрацію
+            </button>
             <p class="typed-hero" aria-hidden="true">
               Настільні ігри для <span id="typed-text">дружніх зустрічей</span>
             </p>
@@ -339,8 +455,8 @@
             </p>
           </div>
 
-          <div class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-3">
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+          <ol role="list" class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-3">
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <p class="mb-3 text-sm font-semibold text-accent">Крок 1</p>
               <h3
                 class="mb-3 font-heading text-xl font-bold leading-7 md:text-2xl md:leading-8"
@@ -351,8 +467,8 @@
                 У демонстраційному квізі можна обрати підбір для своєї компанії або
                 подарунок.
               </p>
-            </article>
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+            </li>
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <p class="mb-3 text-sm font-semibold text-accent">Крок 2</p>
               <h3
                 class="mb-3 font-heading text-xl font-bold leading-7 md:text-2xl md:leading-8"
@@ -363,8 +479,8 @@
                 Задум передбачає короткий список із трьох ігор, підібраних з урахуванням
                 складу компанії, настрою та досвіду гравців.
               </p>
-            </article>
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+            </li>
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <p class="mb-3 text-sm font-semibold text-accent">Крок 3</p>
               <h3
                 class="mb-3 font-heading text-xl font-bold leading-7 md:text-2xl md:leading-8"
@@ -375,8 +491,8 @@
                 Це не Mystery Box: задум сервісу — допомогти з вибором, а не підмінити
                 його випадковою відправкою.
               </p>
-            </article>
-          </div>
+            </li>
+          </ol>
           <p class="mt-6 text-sm leading-5 text-secondary">
             Тут показано лише початок квізу. Автоматичний підбір і рекомендації в цій
             демонстрації не реалізовані.
@@ -398,8 +514,11 @@
             </p>
           </div>
 
-          <div class="grid min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+          <ul
+            role="list"
+            class="grid min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <img
                 class="mb-6 h-6 w-6"
                 src="./assets/icons/collection.svg"
@@ -418,8 +537,8 @@
                 У концепції підписки добір мав би враховувати ігри, які вже є у вашій
                 колекції.
               </p>
-            </article>
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+            </li>
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <img
                 class="mb-6 h-6 w-6"
                 src="./assets/icons/control.svg"
@@ -438,8 +557,8 @@
                 Концепція передбачає короткий список із трьох ігор і можливість замінити
                 гру (Swap); остаточний вибір залишається за людиною.
               </p>
-            </article>
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+            </li>
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <img
                 class="mb-6 h-6 w-6"
                 src="./assets/icons/match.svg"
@@ -457,8 +576,8 @@
               <p class="text-lg leading-7 text-secondary">
                 Концепція Smart Select передбачає паузу, пропуск або скасування підбору.
               </p>
-            </article>
-            <article class="min-w-0 rounded-card border border-decorative bg-surface p-6">
+            </li>
+            <li class="min-w-0 rounded-card border border-decorative bg-surface p-6">
               <img
                 class="mb-6 h-6 w-6"
                 src="./assets/icons/rules.svg"
@@ -476,8 +595,8 @@
               <p class="text-lg leading-7 text-secondary">
                 Концепція передбачає QR-код на коротке відеопояснення правил.
               </p>
-            </article>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -511,12 +630,21 @@
               <h3
                 class="mb-3 font-heading text-xl font-bold leading-7 md:text-2xl md:leading-8"
               >
-                Для своєї компанії
+                Разова покупка
               </h3>
               <p class="text-lg leading-7 text-secondary">
                 Демонстраційний формат підбору настільної гри для спільного вечора — з
-                орієнтиром на склад і досвід компанії.
+                орієнтиром на склад і досвід компанії. Концепція разового придбання без
+                підписки.
               </p>
+              <dl class="mt-6 grid gap-2 text-base leading-6">
+                <dt class="font-semibold">Ціна</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Склад бокса</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Умови</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+              </dl>
             </article>
             <article
               class="flex min-w-0 flex-col rounded-card border border-decorative bg-surface p-6"
@@ -539,6 +667,14 @@
                 Окремий напрям концепції — допомогти обрати настільну гру як подарунок, а
                 не навмання шукати серед каталогу.
               </p>
+              <dl class="mt-6 grid gap-2 text-base leading-6">
+                <dt class="font-semibold">Ціна</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Склад бокса</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Умови</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+              </dl>
             </article>
             <article
               class="flex min-w-0 flex-col rounded-card border border-decorative bg-surface p-6"
@@ -561,10 +697,65 @@
                 Задум Smart Select передбачає гнучкий підбір із паузою, пропуском і
                 скасуванням; у демо його оформлення не передбачене.
               </p>
+              <dl class="mt-6 grid gap-2 text-base leading-6">
+                <dt class="font-semibold">Ціна</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Склад бокса</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+                <dt class="font-semibold">Умови</dt>
+                <dd class="text-secondary">Потребує уточнення</dd>
+              </dl>
             </article>
           </div>
           <p class="mt-6 text-sm leading-5 text-secondary">
             Ілюстрації в картках — демонстраційні зображення, не картки реальних товарів.
+          </p>
+        </div>
+      </section>
+
+      <section id="smart-select" class="bg-section" aria-labelledby="smart-select-title">
+        <div class="mx-auto max-w-[1248px] px-4 py-16 sm:px-6 lg:px-8">
+          <h2
+            id="smart-select-title"
+            class="mb-4 font-heading text-2xl font-bold leading-8 sm:text-[32px] sm:leading-10"
+          >
+            Керування Smart Select
+          </h2>
+          <p class="mb-6 max-w-3xl text-lg leading-7 text-secondary">
+            Огляд задуму підписки: чотири окремі дії для контролю майбутніх підборів. Це
+            пояснення концепції, а не активна підписка.
+          </p>
+          <ul class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <li class="rounded-card border border-decorative bg-surface p-6">
+              <h3 class="mb-2 text-lg font-semibold">Заміна гри</h3>
+              <p class="text-secondary">
+                Концепція вибору іншої гри замість запропонованої.
+              </p>
+            </li>
+            <li class="rounded-card border border-decorative bg-surface p-6">
+              <h3 class="mb-2 text-lg font-semibold">Пропуск доставки</h3>
+              <p class="text-secondary">Концепція пропуску одного наступного бокса.</p>
+            </li>
+            <li class="rounded-card border border-decorative bg-surface p-6">
+              <h3 class="mb-2 text-lg font-semibold">Призупинення</h3>
+              <p class="text-secondary">Концепція тимчасової паузи без нових підборів.</p>
+            </li>
+            <li class="rounded-card border border-decorative bg-surface p-6">
+              <h3 class="mb-2 text-lg font-semibold">Скасування</h3>
+              <p class="text-secondary">Концепція завершення майбутньої підписки.</p>
+            </li>
+          </ul>
+          <button
+            type="button"
+            disabled
+            aria-describedby="management-note"
+            class="min-h-14 max-w-full rounded-control border border-interactive bg-hover-surface px-6 py-3 font-semibold text-secondary disabled:cursor-not-allowed"
+          >
+            Керувати підпискою
+          </button>
+          <p id="management-note" class="mt-4 text-sm leading-5 text-secondary">
+            Керування підпискою недоступне в цій демонстрації. Умови керування: Потребує
+            уточнення. Акаунта, платежів і доставки тут немає.
           </p>
         </div>
       </section>
@@ -616,7 +807,8 @@
               З чого почнемо?
             </h2>
             <p class="mb-8 text-center text-lg leading-7 text-secondary">
-              Оберіть напрям — це єдина доступна взаємодія в демонстрації.
+              Оберіть напрям першого кроку. Окремі приклади нижче статичні: їх можна
+              шукати та додавати в демо-кошик.
             </p>
 
             <form class="rounded-panel border border-decorative bg-surface p-6 sm:p-8">
@@ -626,6 +818,7 @@
                 </legend>
                 <div class="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
                   <label
+                    data-quiz-option
                     class="flex min-h-14 min-w-0 cursor-pointer items-center gap-3 rounded-control border border-interactive px-4 py-4 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent hover:bg-hover-surface"
                   >
                     <input
@@ -638,6 +831,7 @@
                     <span class="min-w-0 leading-6">Для своєї компанії</span>
                   </label>
                   <label
+                    data-quiz-option
                     class="flex min-h-14 min-w-0 cursor-pointer items-center gap-3 rounded-control border border-interactive px-4 py-4 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent hover:bg-hover-surface"
                   >
                     <input
@@ -653,11 +847,212 @@
               <p
                 class="mt-6 border-t border-decorative pt-6 text-sm leading-5 text-secondary"
               >
-                Це демо лише першого вибору. Наступного екрана, алгоритму рекомендацій,
-                результатів, замовлення чи підписки тут немає.
+                Це демо лише першого вибору. Наступного екрана й алгоритму рекомендацій
+                немає. Нижче наведено окремий макет прикладів, не обчислений результат
+                квізу. Замовлення та підписка не оформлюються.
               </p>
             </form>
           </div>
+        </div>
+      </section>
+
+      <!-- Накопичувальний сайт: інтерактивні приклади, успадковані з ЛР6. -->
+      <section id="example" class="bg-background" aria-labelledby="example-title">
+        <div class="mx-auto max-w-site px-4 py-16 sm:px-6 lg:px-8">
+          <h2
+            class="m-0 mb-4 font-heading text-[32px] font-bold leading-10"
+            id="example-title"
+          >
+            Приклад результату підбору
+          </h2>
+          <p class="mb-8 mt-4 text-secondary">
+            Демонстраційний приклад — не фактична підбірка ігор.
+          </p>
+
+          <div
+            role="search"
+            aria-label="Локальний пошук демонстраційних прикладів"
+            class="mb-6"
+          >
+            <label for="demo-card-search" class="mb-2 block font-semibold"
+              >Знайти серед трьох прикладів</label
+            >
+            <input
+              id="demo-card-search"
+              data-demo-search
+              type="search"
+              autocomplete="off"
+              aria-describedby="demo-search-help"
+              class="min-h-11 w-full rounded-control border border-interactive bg-surface px-4 py-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            />
+            <p id="demo-search-help" class="mt-2 text-sm text-secondary">
+              Пошук лише за назвами цих навчальних прикладів, не каталог товарів.
+            </p>
+          </div>
+          <noscript
+            ><p class="mb-4 text-secondary">
+              Пошук і демо-кошик потребують JavaScript; усі приклади доступні нижче.
+            </p></noscript
+          >
+          <p
+            class="mb-6 flex min-h-11 items-center gap-2 rounded-control border border-interactive bg-surface px-4 py-2 text-primary"
+          >
+            У демо-кошику:
+            <output
+              data-cart-count
+              aria-live="polite"
+              aria-atomic="true"
+              class="font-semibold"
+              >0</output
+            >
+            <span>із 3 прикладів. Це не замовлення.</span>
+          </p>
+          <div
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            data-games-grid=""
+          >
+            <article
+              aria-labelledby="demo-game-1-title"
+              class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
+              data-demo-card="1"
+              data-demo-title="Назва гри — приклад"
+            >
+              <img
+                alt=""
+                class="aspect-video w-full bg-section object-contain"
+                height="396"
+                loading="lazy"
+                src="assets/images/game-demo-1.svg"
+                width="704"
+              />
+              <h3
+                class="font-heading text-2xl font-semibold leading-8 text-primary"
+                id="demo-game-1-title"
+              >
+                Назва гри — приклад
+              </h3>
+              <ul class="space-y-2 text-base leading-6 text-secondary">
+                <li>Гравці: [кількість]</li>
+                <li>Тривалість: [час партії]</li>
+                <li>Складність: [рівень]</li>
+              </ul>
+              <h4 class="font-heading text-base font-semibold leading-6 text-primary">
+                Чому ця гра для вас
+              </h4>
+              <p class="text-base leading-6 text-secondary">
+                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+              </p>
+              <p class="text-base leading-6 text-secondary">
+                Пояснення правил: [тривалість]
+              </p>
+              <span class="text-sm leading-5 text-secondary"> Навчальний приклад </span>
+              <button
+                aria-pressed="false"
+                class="mt-auto min-h-14 rounded-control bg-accent px-6 py-3 text-base font-semibold leading-6 text-background transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-surface enabled:hover:bg-cta-hover enabled:active:bg-cta-pressed motion-reduce:transition-none"
+                data-demo-add="1"
+                type="button"
+              >
+                Додати в демо-кошик
+              </button>
+            </article>
+            <article
+              aria-labelledby="demo-game-2-title"
+              class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
+              data-demo-card="2"
+              data-demo-title="Назва гри — довший приклад"
+            >
+              <img
+                alt=""
+                class="aspect-video w-full bg-section object-contain"
+                height="396"
+                loading="lazy"
+                src="assets/images/game-demo-2.svg"
+                width="704"
+              />
+              <h3
+                class="font-heading text-2xl font-semibold leading-8 text-primary"
+                id="demo-game-2-title"
+              >
+                Назва гри — довший приклад
+              </h3>
+              <ul class="space-y-2 text-base leading-6 text-secondary">
+                <li>Гравці: [кількість]</li>
+                <li>Тривалість: [час партії]</li>
+                <li>Складність: [рівень]</li>
+              </ul>
+              <h4 class="font-heading text-base font-semibold leading-6 text-primary">
+                Чому ця гра для вас
+              </h4>
+              <p class="text-base leading-6 text-secondary">
+                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+              </p>
+              <p class="text-base leading-6 text-secondary">
+                Пояснення правил: [тривалість]
+              </p>
+              <span class="text-sm leading-5 text-secondary"> Навчальний приклад </span>
+              <button
+                aria-pressed="false"
+                class="mt-auto min-h-14 rounded-control bg-accent px-6 py-3 text-base font-semibold leading-6 text-background transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-surface enabled:hover:bg-cta-hover enabled:active:bg-cta-pressed motion-reduce:transition-none"
+                data-demo-add="2"
+                type="button"
+              >
+                Додати в демо-кошик
+              </button>
+            </article>
+            <article
+              aria-labelledby="demo-game-3-title"
+              class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
+              data-demo-card="3"
+              data-demo-title="Назва гри — приклад для вашої компанії"
+            >
+              <img
+                alt=""
+                class="aspect-video w-full bg-section object-contain"
+                height="396"
+                loading="lazy"
+                src="assets/images/game-demo-3.svg"
+                width="704"
+              />
+              <h3
+                class="font-heading text-2xl font-semibold leading-8 text-primary"
+                id="demo-game-3-title"
+              >
+                Назва гри — приклад для вашої компанії
+              </h3>
+              <ul class="space-y-2 text-base leading-6 text-secondary">
+                <li>Гравці: [кількість]</li>
+                <li>Тривалість: [час партії]</li>
+                <li>Складність: [рівень]</li>
+              </ul>
+              <h4 class="font-heading text-base font-semibold leading-6 text-primary">
+                Чому ця гра для вас
+              </h4>
+              <p class="text-base leading-6 text-secondary">
+                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+              </p>
+              <p class="text-base leading-6 text-secondary">
+                Пояснення правил: [тривалість]
+              </p>
+              <span class="text-sm leading-5 text-secondary"> Навчальний приклад </span>
+              <button
+                aria-pressed="false"
+                class="mt-auto min-h-14 rounded-control bg-accent px-6 py-3 text-base font-semibold leading-6 text-background transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-surface enabled:hover:bg-cta-hover enabled:active:bg-cta-pressed motion-reduce:transition-none"
+                data-demo-add="3"
+                type="button"
+              >
+                Додати в демо-кошик
+              </button>
+            </article>
+          </div>
+          <p
+            aria-live="polite"
+            class="mt-6 text-secondary"
+            data-demo-status=""
+            hidden=""
+            role="status"
+          >
+            За цим запитом прикладів не знайдено.
+          </p>
         </div>
       </section>
 
@@ -674,16 +1069,17 @@
               <h3
                 class="mb-4 font-heading text-xl font-bold leading-7 md:text-2xl md:leading-8"
               >
-                Магія слів
+                10 настільних ігор для колекції
               </h3>
               <p class="mb-4 leading-6 text-secondary">
-                Зовнішнє відеопояснення гри «Магія слів» від Geekach Games.
+                Англомовний огляд «Top 10 Essential Board Games Everyone Should Own» від
+                Board Game Hangover, обраний для натхнення до ігрового вечора.
               </p>
               <!-- Зовнішнє відео вбудовано через privacy-enhanced режим YouTube. -->
               <div class="relative aspect-video overflow-hidden rounded-control">
                 <iframe
-                  src="https://www.youtube-nocookie.com/embed/v5CRYddyy_M?si=9y2aakpq8kGMACgH"
-                  title="Відеопояснення гри «Магія слів» на YouTube"
+                  src="https://www.youtube-nocookie.com/embed/tKgVzCCIjfo"
+                  title="Top 10 Essential Board Games Everyone Should Own — Board Game Hangover"
                   loading="lazy"
                   class="absolute inset-0 h-full w-full border-0"
                   allow="encrypted-media; picture-in-picture; web-share"
@@ -696,7 +1092,7 @@
                 Джерело:
                 <a
                   class="text-primary underline underline-offset-4 transition-colors duration-180 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-                  href="https://www.youtube.com/watch?v=v5CRYddyy_M"
+                  href="https://www.youtube.com/watch?v=tKgVzCCIjfo"
                   target="_blank"
                   rel="noopener noreferrer"
                   >дивитися на YouTube</a
@@ -798,7 +1194,7 @@
           id="reviews"
           aria-labelledby="reviews-title"
           class="rounded-3xl p-5 sm:p-8"
-          style="background-color: #1c2541"
+          style="background-color: var(--color-surface)"
         >
           <div
             class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
@@ -807,11 +1203,14 @@
               <h2
                 id="reviews-title"
                 class="text-xl font-bold sm:text-2xl"
-                style="color: #f5f7fa"
+                style="color: var(--color-text)"
               >
                 Демо-відгуки
               </h2>
-              <p class="mt-1 text-xs sm:text-sm" style="color: #b9c2d0">
+              <p
+                class="mt-1 text-xs sm:text-sm"
+                style="color: var(--color-text-secondary)"
+              >
                 Вигадані приклади для навчального прототипу, не реальні відгуки клієнтів.
               </p>
             </div>
@@ -826,8 +1225,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">О</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Олена</p>
-                      <p class="text-xs" style="color: #b9c2d0">Київ</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Олена</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Київ
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -844,8 +1245,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">Д</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Дмитро</p>
-                      <p class="text-xs" style="color: #b9c2d0">Львів</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Дмитро</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Львів
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -863,8 +1266,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">М</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Марина</p>
-                      <p class="text-xs" style="color: #b9c2d0">Одеса</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Марина</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Одеса
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -881,8 +1286,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">А</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Андрій</p>
-                      <p class="text-xs" style="color: #b9c2d0">Харків</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Андрій</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Харків
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -899,8 +1306,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">С</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Софія</p>
-                      <p class="text-xs" style="color: #b9c2d0">Дніпро</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Софія</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Дніпро
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -917,8 +1326,10 @@
                   <div class="flex items-center gap-3">
                     <span class="review-avatar" aria-hidden="true">П</span>
                     <div>
-                      <p class="font-semibold" style="color: #f5f7fa">Павло</p>
-                      <p class="text-xs" style="color: #b9c2d0">Полтава</p>
+                      <p class="font-semibold" style="color: var(--color-text)">Павло</p>
+                      <p class="text-xs" style="color: var(--color-text-secondary)">
+                        Полтава
+                      </p>
                     </div>
                   </div>
                   <p class="review-rating" aria-label="Оцінка 5 з 5 зірок">★★★★★</p>
@@ -964,75 +1375,87 @@
         <section
           id="gallery"
           aria-labelledby="gallery-title"
-          class="mt-8 rounded-3xl p-5 sm:p-8"
-          style="background-color: #1c2541"
+          class="stock-gallery mt-8 rounded-3xl bg-surface p-5 sm:p-8"
         >
-          <div class="mb-6">
-            <h2
-              id="gallery-title"
-              class="text-xl font-bold sm:text-2xl"
-              style="color: #f5f7fa"
-            >
-              Графіка проєкту
-            </h2>
-            <p class="mt-1 text-xs sm:text-sm" style="color: #b9c2d0">
-              Графіка навчального макета з ЛР3, а не фото реального закладу чи товару.
-              Натисніть на зображення, щоб збільшити його.
-            </p>
+          <h2 id="gallery-title" class="mb-3 text-xl font-bold sm:text-2xl">
+            Ігрові вечори
+          </h2>
+          <p class="mb-6 text-secondary">
+            Настільні ігри збирають людей за одним столом. Гортайте фото у власному темпі.
+          </p>
+          <div
+            class="stock-swiper swiper"
+            tabindex="0"
+            role="region"
+            aria-label="Фото ігрових вечорів"
+            aria-roledescription="карусель"
+          >
+            <div class="swiper-wrapper">
+              <figure class="swiper-slide">
+                <img
+                  src="https://images.pexels.com/photos/8111352/pexels-photo-8111352.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
+                  width="5192"
+                  height="3466"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Друзі за настільною грою: компанія грає в настільну гру за столом"
+                />
+                <figcaption>Друзі за настільною грою</figcaption>
+              </figure>
+              <figure class="swiper-slide">
+                <img
+                  src="https://images.pexels.com/photos/8111359/pexels-photo-8111359.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
+                  width="5192"
+                  height="3466"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Спільний хід за ігровим столом: компанія грає в настільну гру за столом"
+                />
+                <figcaption>Спільний хід за ігровим столом</figcaption>
+              </figure>
+              <figure class="swiper-slide">
+                <img
+                  src="https://images.pexels.com/photos/8111365/pexels-photo-8111365.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
+                  width="5192"
+                  height="3466"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Час для гри разом: компанія грає в настільну гру за столом"
+                />
+                <figcaption>Час для гри разом</figcaption>
+              </figure>
+            </div>
           </div>
-
-          <div class="gallery-grid">
-            <a
-              class="lab3-gallery-item"
-              href="assets/images/lab3/hero-dark-desktop.jpg"
-              data-gallery="lab3-gallery"
-              data-glightbox="title: Темний desktop Hero; description: Темний desktop Hero з навчального макета ЛР3."
-              aria-label="Збільшити зображення: Темний desktop Hero"
-            >
-              <img
-                src="assets/images/lab3/hero-dark-desktop.jpg"
-                alt="Темний desktop Hero навчального макета з настільними іграми"
-                width="1376"
-                height="768"
-                loading="lazy"
-              />
-              <span class="gallery-caption">Темний desktop Hero</span>
-            </a>
-
-            <a
-              class="lab3-gallery-item"
-              href="assets/images/lab3/hero-light-desktop.jpg"
-              data-gallery="lab3-gallery"
-              data-glightbox="title: Світлий desktop Hero; description: Світлий desktop Hero з навчального макета ЛР3."
-              aria-label="Збільшити зображення: Світлий desktop Hero"
-            >
-              <img
-                src="assets/images/lab3/hero-light-desktop.jpg"
-                alt="Світлий desktop Hero навчального макета з настільними іграми"
-                width="1376"
-                height="768"
-                loading="lazy"
-              />
-              <span class="gallery-caption">Світлий desktop Hero</span>
-            </a>
-
-            <a
-              class="lab3-gallery-item"
-              href="assets/images/lab3/hero-dark-mobile.jpg"
-              data-gallery="lab3-gallery"
-              data-glightbox="title: Темний mobile Hero; description: Темний mobile Hero з навчального макета ЛР3."
-              aria-label="Збільшити зображення: Темний mobile Hero"
-            >
-              <img
-                src="assets/images/lab3/hero-dark-mobile.jpg"
-                alt="Темний mobile Hero навчального макета з настільними іграми"
-                width="928"
-                height="1152"
-                loading="lazy"
-              />
-              <span class="gallery-caption">Темний mobile Hero</span>
-            </a>
+          <div class="stock-controls" hidden>
+            <button type="button" class="stock-prev" aria-label="Попереднє фото">
+              ←
+            </button>
+            <div class="stock-pagination" role="group" aria-label="Вибрати фото">
+              <button type="button" aria-label="Фото 1" aria-pressed="true">1</button>
+              <button type="button" aria-label="Фото 2" aria-pressed="false">2</button>
+              <button type="button" aria-label="Фото 3" aria-pressed="false">3</button>
+            </div>
+            <button type="button" class="stock-next" aria-label="Наступне фото">→</button>
           </div>
+          <p class="mt-4 text-sm text-secondary">
+            Фото:
+            <a
+              href="https://www.pexels.com/@pavel-danilyuk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline"
+              >Pavel Danilyuk</a
+            >
+            /
+            <a
+              href="https://www.pexels.com/license/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline"
+              >Pexels</a
+            >. Стокові ілюстрації, не фото клієнтів чи нашого закладу. Фото завантажуються
+            із зовнішнього CDN; без мережі можуть бути недоступні.
+          </p>
         </section>
       </div>
 
@@ -1335,6 +1758,26 @@
               href="#contacts"
               >Карта Львова</a
             >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#about"
+              >Про сервіс</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#smart-select"
+              >Smart Select</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#example"
+              >Демо-приклади</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#feedback"
+              >Зворотний зв’язок</a
+            >
           </nav>
         </div>
         <aside
@@ -1376,8 +1819,8 @@
         >
           <p>© 2026 «Твій Хід»</p>
           <p class="max-w-2xl">
-            Навчальний прототип. Доступний початок квізу; підбір, замовлення та підписка
-            не реалізовані.
+            Навчальний прототип: початок квізу, локальний пошук і демо-кошик. Автоматичний
+            підбір, замовлення та підписка не реалізовані.
           </p>
         </div>
       </div>
