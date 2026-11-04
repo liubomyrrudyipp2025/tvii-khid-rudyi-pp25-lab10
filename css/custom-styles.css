@@ -176,6 +176,29 @@
 [data-hero-media] {
   container-type: size;
 }
+/* Blend only the actual media edges; preserve its calibrated size and position. */
+[data-hero-media] :is([data-hero-photo] img, [data-hero-video]) {
+  --hero-edge-fade: clamp(16px, 5vw, 24px);
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      #000 var(--hero-edge-fade),
+      #000 calc(100% - var(--hero-edge-fade)),
+      transparent
+    ),
+    linear-gradient(
+      to bottom,
+      transparent,
+      #000 var(--hero-edge-fade),
+      #000 calc(100% - var(--hero-edge-fade)),
+      transparent
+    );
+  mask-mode: alpha;
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
 @media (max-width: 767px) {
   /* One native portrait frame in both themes/modes; keep every source intact. */
   [data-hero-media] {
