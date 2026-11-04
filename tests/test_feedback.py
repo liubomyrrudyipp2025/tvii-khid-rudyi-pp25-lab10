@@ -24,17 +24,19 @@ class FeedbackSemantics(unittest.TestCase):
                 for desc in descriptions:self.assertEqual(sum(a.get('id')==desc for _,a in tree.nodes),1)
         self.assertTrue(any(tag=='button' and a.get('type')=='submit' for tag,a in tree.nodes))
 class ProjectIdentity(unittest.TestCase):
-    def test_workspace_has_independent_lab10_identity_and_port(self):
+    def test_cumulative_workspace_keeps_historical_package_identity_and_port(self):
         import json
         package=json.loads((ROOT/'package.json').read_text(encoding='utf-8'))
         lock=json.loads((ROOT/'package-lock.json').read_text(encoding='utf-8'))
         settings=json.loads((ROOT/'.vscode/settings.json').read_text(encoding='utf-8'))
-        self.assertEqual(package['name'],'tvii-khid-lab10-media','Independent Lab10 identity required')
+        self.assertEqual(package['name'],'tvii-khid-lab10-media','Preserve historical package identity for the cumulative site')
         self.assertEqual(lock['name'],package['name'])
         self.assertEqual(lock['packages']['']['name'],package['name'])
         self.assertEqual(settings['liveServer.settings.port'],5510)
         readme=(ROOT/'README.md').read_text(encoding='utf-8')
-        self.assertEqual(readme.splitlines()[0],'# Твій Хід — ЛР10','README still identifies the previous lab')
+        self.assertEqual(readme.splitlines()[0],'# Твій Хід — накопичувальний навчальний сайт')
+        self.assertIn('Планувальник ігрового вечора (ЛР11)',readme)
+        self.assertIn('tests/planner.test.cjs',readme)
         tasks=json.loads((ROOT/'.vscode/tasks.json').read_text(encoding='utf-8'))['tasks']
         self.assertTrue(tasks)
         self.assertTrue(all('Lab10' in t['label'] and 'Lab9' not in t['label'] for t in tasks),'Task labels still identify the previous lab')

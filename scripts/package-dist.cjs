@@ -17,6 +17,7 @@ const files = [
   "js/hero-media.js",
   "js/validation.js",
   "js/media-components.js",
+  "js/widget.js",
   "css/media-components.css",
   "widgets/clock.shtml",
   "widgets/clock.js",

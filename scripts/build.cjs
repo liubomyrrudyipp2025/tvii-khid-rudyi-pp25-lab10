@@ -20,6 +20,7 @@ for (const file of [
   "css/custom-styles.css",
   "js/demo.js",
   "js/media-components.js",
+  "js/widget.js",
   "css/media-components.css",
 ]) {
   if (!fs.statSync(path.join(site, file)).isFile())

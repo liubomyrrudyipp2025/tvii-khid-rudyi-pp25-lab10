@@ -34,6 +34,7 @@
     <script src="./js/demo.js" defer></script>
     <script src="./js/hero-media.js" defer></script>
     <script src="./js/validation.js" defer></script>
+    <script src="./js/widget.js" defer></script>
   </head>
 
   <body class="bg-background text-primary">
@@ -1185,6 +1186,273 @@
             Навчальний прототип: доступний початок квізу. Замовлення та підписка не
             оформлюються.
           </p>
+        </div>
+      </section>
+
+      <!-- ЛР11: HTML-каркас з IDE AI; інтеграція Hermes, без зміни успадкованих секцій. -->
+      <section
+        id="evening-planner"
+        data-evening-planner
+        aria-labelledby="evening-planner-title"
+        class="py-16 sm:py-20"
+      >
+        <div class="container mx-auto max-w-site px-4 sm:px-6 lg:px-8">
+          <h2
+            id="evening-planner-title"
+            class="font-heading text-3xl font-bold text-primary sm:text-4xl"
+          >
+            Планувальник ігрового вечора
+          </h2>
+          <p class="mt-4 max-w-3xl text-lg leading-7 text-primary">
+            Вкажіть кількість учасників і доступний час, щоб побачити навчальний
+            розрахунок раундів і груп.
+          </p>
+
+          <div class="mt-8 grid min-w-0 gap-6 lg:grid-cols-2 lg:items-start">
+            <form data-planner-form novalidate class="min-w-0">
+              <fieldset
+                data-planner-fields
+                disabled
+                class="min-w-0 rounded-panel border border-decorative bg-surface p-6 sm:p-8"
+              >
+                <legend class="px-2 text-base leading-6 text-primary">
+                  Поля стануть доступними після підключення планувальника
+                </legend>
+
+                <div class="grid min-w-0 gap-6 sm:grid-cols-2">
+                  <div class="min-w-0">
+                    <label
+                      for="planner-players"
+                      class="mb-2 block text-base leading-6 text-primary"
+                    >
+                      Кількість учасників
+                    </label>
+                    <input
+                      id="planner-players"
+                      data-field="players"
+                      type="number"
+                      min="2"
+                      max="12"
+                      step="1"
+                      value="4"
+                      required
+                      aria-describedby="planner-players-help planner-players-error"
+                      class="min-h-[48px] w-full min-w-0 rounded-control border border-interactive bg-background px-4 py-3 text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    />
+                    <p
+                      id="planner-players-help"
+                      data-help="players"
+                      class="mt-2 break-words text-base leading-6 text-primary"
+                    >
+                      Від 2 до 12 учасників.
+                    </p>
+                    <p
+                      id="planner-players-error"
+                      data-error="players"
+                      hidden
+                      class="mt-2 break-words text-base leading-6 text-error"
+                    ></p>
+                  </div>
+
+                  <div class="min-w-0">
+                    <label
+                      for="planner-minutes"
+                      class="mb-2 block text-base leading-6 text-primary"
+                    >
+                      Доступний час, хвилини
+                    </label>
+                    <input
+                      id="planner-minutes"
+                      data-field="minutes"
+                      type="number"
+                      min="15"
+                      max="240"
+                      step="1"
+                      value="120"
+                      required
+                      aria-describedby="planner-minutes-help planner-minutes-error"
+                      class="min-h-[48px] w-full min-w-0 rounded-control border border-interactive bg-background px-4 py-3 text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    />
+                    <p
+                      id="planner-minutes-help"
+                      data-help="minutes"
+                      class="mt-2 break-words text-base leading-6 text-primary"
+                    >
+                      Від 15 до 240 хвилин.
+                    </p>
+                    <p
+                      id="planner-minutes-error"
+                      data-error="minutes"
+                      hidden
+                      class="mt-2 break-words text-base leading-6 text-error"
+                    ></p>
+                  </div>
+
+                  <div class="min-w-0">
+                    <label
+                      for="planner-duration"
+                      class="mb-2 block text-base leading-6 text-primary"
+                    >
+                      Тривалість раунду, хвилини
+                    </label>
+                    <select
+                      id="planner-duration"
+                      data-field="duration"
+                      aria-describedby="planner-duration-help planner-duration-error"
+                      class="min-h-[48px] w-full min-w-0 rounded-control border border-interactive bg-background px-4 py-3 text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
+                      <option value="15">15</option>
+                      <option value="30" selected>30</option>
+                      <option value="45">45</option>
+                      <option value="60">60</option>
+                    </select>
+                    <p
+                      id="planner-duration-help"
+                      data-help="duration"
+                      class="mt-2 break-words text-base leading-6 text-primary"
+                    >
+                      Оберіть тривалість одного раунду.
+                    </p>
+                    <p
+                      id="planner-duration-error"
+                      data-error="duration"
+                      hidden
+                      class="mt-2 break-words text-base leading-6 text-error"
+                    ></p>
+                  </div>
+
+                  <div class="min-w-0">
+                    <span class="mb-2 block text-base leading-6 text-primary"
+                      >Перерви</span
+                    >
+                    <label
+                      for="planner-breaks"
+                      class="flex min-w-0 items-start gap-3 text-base leading-6 text-primary"
+                    >
+                      <input
+                        id="planner-breaks"
+                        data-field="breaks"
+                        type="checkbox"
+                        checked
+                        aria-describedby="planner-breaks-help planner-breaks-error"
+                        class="mt-1 shrink-0 accent-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                      />
+                      <span class="min-w-0 break-words">5 хв перерви між раундами</span>
+                    </label>
+                    <p
+                      id="planner-breaks-help"
+                      data-help="breaks"
+                      class="mt-2 break-words text-base leading-6 text-primary"
+                    >
+                      Перерва враховується між раундами, але не після останнього.
+                    </p>
+                    <p
+                      id="planner-breaks-error"
+                      data-error="breaks"
+                      hidden
+                      class="mt-2 break-words text-base leading-6 text-error"
+                    ></p>
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <button
+                    type="button"
+                    data-planner-reset
+                    class="min-h-[48px] rounded-control border border-interactive bg-surface px-5 py-3 text-primary hover:bg-hover-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  >
+                    Скинути
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+
+            <div
+              class="min-w-0 rounded-panel border border-decorative bg-surface p-6 sm:p-8"
+            >
+              <p data-planner-fallback class="break-words text-lg leading-7 text-primary">
+                Планувальник потребує JavaScript. Увімкніть його, щоб виконати розрахунок
+              </p>
+
+              <p
+                data-planner-invalid
+                hidden
+                class="break-words text-lg leading-7 text-error"
+              >
+                Перевірте поля, щоб побачити актуальний розрахунок
+              </p>
+
+              <div data-planner-results hidden class="min-w-0">
+                <h3 class="font-heading text-xl font-bold text-primary">Результат</h3>
+
+                <dl class="mt-4 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div class="min-w-0">
+                    <dt class="break-words text-base leading-6 text-primary">Раунди</dt>
+                    <dd class="mt-1 min-w-0 text-lg tabular-nums leading-7 text-primary">
+                      <output id="planner-result-rounds" data-result="rounds">—</output>
+                    </dd>
+                  </div>
+                  <div class="min-w-0">
+                    <dt class="break-words text-base leading-6 text-primary">Групи</dt>
+                    <dd class="mt-1 min-w-0 text-lg tabular-nums leading-7 text-primary">
+                      <output id="planner-result-groups" data-result="groups">—</output>
+                    </dd>
+                  </div>
+                  <div class="min-w-0">
+                    <dt class="break-words text-base leading-6 text-primary">
+                      Партії загалом
+                    </dt>
+                    <dd class="mt-1 min-w-0 text-lg tabular-nums leading-7 text-primary">
+                      <output id="planner-result-games" data-result="games">—</output>
+                    </dd>
+                  </div>
+                  <div class="min-w-0">
+                    <dt class="break-words text-base leading-6 text-primary">
+                      Використаний час
+                    </dt>
+                    <dd class="mt-1 min-w-0 text-lg tabular-nums leading-7 text-primary">
+                      <output id="planner-result-used" data-result="used">—</output>
+                    </dd>
+                  </div>
+                  <div class="min-w-0">
+                    <dt class="break-words text-base leading-6 text-primary">
+                      Вільний час
+                    </dt>
+                    <dd class="mt-1 min-w-0 text-lg tabular-nums leading-7 text-primary">
+                      <output id="planner-result-free" data-result="free">—</output>
+                    </dd>
+                  </div>
+                </dl>
+
+                <p
+                  data-group-detail
+                  class="mt-4 min-w-0 break-words text-base leading-6 text-primary"
+                >
+                  —
+                </p>
+                <p
+                  data-zero-message
+                  hidden
+                  class="mt-4 min-w-0 break-words text-base leading-6 text-primary"
+                >
+                  За цими умовами раундів не заплановано.
+                </p>
+              </div>
+
+              <p class="mt-6 min-w-0 break-words text-base leading-6 text-primary">
+                Умовне правило: до 4 учасників у групі. Групи грають паралельно; кількість
+                партій залежить від кількості груп. Це планувальник часу, а не підбір
+                конкретної гри.
+              </p>
+            </div>
+          </div>
+
+          <p
+            data-planner-status
+            class="sr-only"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
         </div>
       </section>
 
