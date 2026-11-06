@@ -17,3 +17,4 @@ evidence/
 *.zip
 playwright-report/
 test-results/
+.vercel/

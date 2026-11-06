@@ -1,5 +1,3 @@
-@import url("../assets/fonts/google-fonts.css");
-
 :root {
   /* Colors */
   color-scheme: dark;
@@ -315,4 +313,46 @@ textarea:disabled {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Append-only: enlarge header/Hero hit areas without changing control layout. */
+:is(header, #home) :is(a[href], button, summary):not([hidden]):not(:disabled) {
+  position: relative;
+}
+
+:is(header, #home) :is(a[href], button, summary):not([hidden]):not(:disabled)::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 48px);
+  height: max(100%, 48px);
+  transform: translate(-50%, -50%);
+  background: transparent;
+  pointer-events: inherit;
+}
+
+/* Append-only: enlarge below-Hero hit areas without changing control layout. */
+body :is(.stock-controls button, #faq summary, footer a[href], footer summary) {
+  position: relative;
+}
+
+body
+  :is(
+    .stock-controls button,
+    .reviews-button-prev,
+    .reviews-button-next,
+    #faq summary,
+    footer a[href],
+    footer summary
+  )::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 48px);
+  height: max(100%, 48px);
+  transform: translate(-50%, -50%);
+  background: transparent;
+  pointer-events: inherit;
 }

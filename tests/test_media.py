@@ -64,9 +64,11 @@ class MediaMigration(unittest.TestCase):
             'assets/videos/hero-light-mobile.mp4':'1c6d4085ab3d3be318231c84f3f080a3da439207a69a8a0f72e3b305d72d6d6f',
         }
         self.assertEqual(len(expected),8)
+        # Optimized backgrounds may use derived encodings; originals stay in the actual Hero album.
+        references=html+(ROOT/'js/media-components.js').read_text(encoding='utf-8')
         for name,sha in expected.items():
             with self.subTest(asset=name):
-                self.assertIn('./'+name,html)
+                self.assertIn('./'+name,references)
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha)
         for key in ['data-src','data-src-mobile','data-src-light','data-src-light-mobile','data-poster','data-poster-mobile','data-poster-light','data-poster-light-mobile']:
             self.assertTrue((ROOT/video[key].removeprefix('./')).is_file(),key)

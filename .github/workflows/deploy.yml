@@ -1,0 +1,126 @@
+name: CI/CD Production Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-main
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    env:
+      CI: "true"
+      PYTHONDONTWRITEBYTECODE: "1"
+      VERCEL_TELEMETRY_DISABLED: "1"
+      NO_COLOR: "1"
+    steps:
+      - name: Checkout exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up project Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22.23.4"
+          package-manager-cache: false
+
+      - name: Set up Python for the existing unittest suite
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.14.10"
+
+      - name: Require reviewed dist-only Actions deployment configuration
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const assert = require('node:assert/strict');
+
+          const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+          assert.equal(config.framework, null);
+          assert.equal(config.installCommand, 'npm ci');
+          assert.equal(config.buildCommand, 'npm run package:dist');
+          assert.equal(config.outputDirectory, 'dist');
+          assert.equal(config.git?.deploymentEnabled, false);
+
+          const clockHeaders = config.headers?.find(
+            ({ source }) => source === '/widgets/clock.shtml'
+          )?.headers;
+          assert.ok(
+            clockHeaders?.some(
+              ({ key, value }) =>
+                key === 'Content-Type' && value === 'text/html; charset=UTF-8'
+            )
+          );
+
+          assert.match(fs.readFileSync('.gitignore', 'utf8'), /^\.vercel\/$/m);
+          NODE
+
+      - name: Install locked project dependencies
+        run: npm ci
+
+      - name: Check the existing project formatting contract
+        run: npm run format:check
+
+      - name: Compile Tailwind and package the public runtime allowlist
+        run: npm run package:dist
+
+      - name: Run all Python regression tests
+        run: npm test
+
+      - name: Run both existing Node test suites
+        run: node --test tests/validation.test.cjs tests/planner.test.cjs
+
+      - name: Save the checked production files
+        run: |
+          mkdir -p "$RUNNER_TEMP/checked-dist"
+          cp -a dist/. "$RUNNER_TEMP/checked-dist/"
+
+      - name: Install pinned official Vercel CLI
+        run: npm install --global vercel@65.11.0
+
+      - name: Build and deploy the checked production artifacts
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+
+          test -n "$VERCEL_TOKEN" || { printf '%s\n' 'Missing VERCEL_TOKEN' >&2; exit 1; }
+          test -n "$VERCEL_ORG_ID" || { printf '%s\n' 'Missing VERCEL_ORG_ID' >&2; exit 1; }
+          test -n "$VERCEL_PROJECT_ID" || { printf '%s\n' 'Missing VERCEL_PROJECT_ID' >&2; exit 1; }
+
+          vercel pull --yes --environment=production
+          vercel build --prod
+
+          test -f .vercel/output/config.json
+          test -f .vercel/output/static/index.html
+          diff --recursive --brief "$RUNNER_TEMP/checked-dist" dist
+          diff --recursive --brief dist .vercel/output/static
+
+          deployment_output="$(vercel deploy --prebuilt --prod --yes)"
+          deployment_url="$(
+            printf '%s\n' "$deployment_output" |
+              grep -Eo 'https://[^[:space:]]+' |
+              tail -n 1
+          )"
+          test -n "$deployment_url" || {
+            printf '%s\n' 'Vercel CLI did not return a deployment URL' >&2
+            exit 1
+          }
+
+          printf '%s\n' "$deployment_url" > "$RUNNER_TEMP/lab12-deployment-url.txt"
+          printf '%s\n' "$(< "$RUNNER_TEMP/lab12-deployment-url.txt")"
