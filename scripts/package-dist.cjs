@@ -7,6 +7,10 @@ const site = path.resolve(__dirname, "..");
 const dist = path.join(site, "dist");
 const files = [
   "index.html",
+  "account.html",
+  "quiz.html",
+  "js/demo-service.js",
+  "css/demo-service.css",
   "CREDITS.md",
   "js/theme.js",
   "favicon.ico",

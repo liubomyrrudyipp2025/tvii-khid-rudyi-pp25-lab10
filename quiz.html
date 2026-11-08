@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Квіз із п’яти питань і локальний демо-кабінет Твій Хід — без паролів, платежів і справжніх замовлень."
+    />
+    <script src="./js/theme.js"></script>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./css/tailwind.css" />
+    <link rel="stylesheet" href="./assets/fonts/google-fonts.css" />
+    <link rel="stylesheet" href="./css/custom-styles.css" />
+    <link rel="stylesheet" href="./css/demo-service.css" />
+    <script src="./js/demo.js" defer></script>
+    <script src="./js/demo-service.js" defer></script>
+    <title>Квіз із 5 питань — Твій Хід</title>
+  </head>
+  <body class="bg-background text-primary">
+    <header
+      class="site-header relative z-40 border-b border-decorative bg-background desktop:sticky desktop:top-0"
+    >
+      <div
+        class="mx-auto flex max-w-[1248px] items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
+      >
+        <a
+          class="inline-flex min-h-11 min-w-0 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent lg:shrink-0"
+          href="./index.html#home"
+          aria-label="Твій Хід — на головну"
+        >
+          <img
+            data-brand-logo
+            class="h-auto max-h-9 w-auto max-w-full"
+            src="./assets/images/logo.svg"
+            width="144"
+            height="36"
+            alt="Твій Хід"
+          />
+        </a>
+
+        <nav
+          class="hidden min-w-0 items-center gap-2 lg:flex"
+          aria-label="Основна навігація"
+        >
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#how-it-works"
+            >Як це працює</a
+          >
+          <details data-service-menu class="relative">
+            <summary
+              class="min-h-11 cursor-pointer rounded-control px-3 py-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              Сервіс
+            </summary>
+            <nav
+              aria-label="Розділи сервісу"
+              class="absolute left-0 top-full z-20 mt-2 flex w-64 flex-col gap-1 rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#benefits"
+                >Переваги</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#plans"
+                >Формати сервісу</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#about"
+                >Про сервіс</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#faq"
+                >Запитання й відповіді</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#smart-select"
+                >Керування Smart Select</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#example"
+                >Демонстраційні приклади</a
+              >
+            </nav>
+          </details>
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#feedback"
+            >Зворотний зв’язок</a
+          >
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#contacts"
+            >Контакти</a
+          >
+        </nav>
+
+        <a
+          class="hidden min-h-14 shrink-0 items-center justify-center rounded-control bg-accent px-6 py-3 font-semibold text-background transition duration-180 hover:bg-cta-hover hover:shadow-[shadow:var(--shadow-low)] focus-visible:shadow-[shadow:var(--shadow-low)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent active:bg-cta-pressed motion-reduce:transition-none lg:inline-flex"
+          href="./index.html#quiz"
+        >
+          Підібрати гру
+        </a>
+
+        <button id="themeToggle" type="button" class="theme-toggle" aria-pressed="false">
+          Світла тема
+        </button>
+        <details data-mobile-menu class="relative shrink-0 lg:hidden">
+          <summary
+            class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-control border border-interactive px-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            <span class="sr-only">Відкрити меню</span>
+            <span aria-hidden="true" class="text-2xl leading-none">☰</span>
+          </summary>
+          <nav
+            class="absolute right-0 top-full z-20 mt-2 flex max-h-[calc(100dvh-6rem)] w-[min(18rem,calc(100vw-2rem))] flex-col gap-1 overflow-y-auto rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            aria-label="Мобільна навігація"
+          >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#how-it-works"
+              >Як це працює</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#benefits"
+              >Переваги</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#plans"
+              >Формати сервісу</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#about"
+              >Про сервіс</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#faq"
+              >Запитання й відповіді</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#smart-select"
+              >Керування Smart Select</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#example"
+              >Демонстраційні приклади</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#feedback"
+              >Зворотний зв’язок</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#contacts"
+              >Контакти — карта Львова</a
+            >
+            <a
+              class="mt-2 inline-flex min-h-14 items-center justify-center rounded-control bg-accent px-4 py-3 font-semibold text-background transition duration-180 hover:bg-cta-hover hover:shadow-[shadow:var(--shadow-low)] focus-visible:shadow-[shadow:var(--shadow-low)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent active:bg-cta-pressed motion-reduce:transition-none"
+              href="./index.html#quiz"
+              >Підібрати гру</a
+            >
+          </nav>
+        </details>
+      </div>
+      <div
+        class="mx-auto flex max-w-[1248px] flex-wrap justify-end gap-2 px-4 pb-3 sm:px-6 lg:px-8"
+      >
+        <a
+          href="./account.html"
+          data-account-link
+          class="demo-button demo-account-shortcut"
+          >Увійти / реєстрація</a
+        ><a href="./account.html#subscription" class="demo-button demo-account-shortcut"
+          >Демо-підписка</a
+        >
+        <a
+          href="./index.html#example"
+          aria-label="Демо-кошик: обрані приклади"
+          class="inline-flex min-h-11 items-center gap-2 rounded-control border border-interactive bg-surface px-4 py-2 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        >
+          Демо-кошик:
+          <span
+            data-cart-count
+            aria-live="polite"
+            aria-atomic="true"
+            class="font-semibold"
+            >0</span
+          ><span class="text-secondary">/ 3 приклади</span>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section id="quiz" class="demo-service bg-section" aria-labelledby="quiz-title">
+        <div class="demo-shell">
+          <p class="demo-note">Квіз із 5 питань · без реєстрації</p>
+          <h1 id="quiz-title" class="demo-title">Знайдіть ідею для ігрового вечора</h1>
+          <p class="demo-note">
+            Дайте п’ять відповідей і отримайте одну з трьох випадкових навчальних ігор. Це
+            демо, не персональний алгоритм рекомендацій. Окремі приклади нижче статичні:
+            їх можна шукати та додавати в демо-кошик.
+          </p>
+          <p>
+            <a class="demo-button" href="./quiz.html">Відкрити квіз окремою сторінкою</a>
+          </p>
+          <noscript
+            ><p class="demo-notice">
+              Для квізу потрібен JavaScript. Доступні приклади ігор є на головній
+              сторінці.
+            </p></noscript
+          >
+          <form data-full-quiz novalidate class="demo-panel">
+            <div data-quiz-fields>
+              <p data-quiz-progress role="status" class="demo-note">Питання 1 із 5</p>
+              <fieldset data-quiz-step>
+                <legend tabindex="-1" class="demo-subtitle">Для кого шукаєте гру?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="company" checked /><span
+                      >Для своєї компанії</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="family" /><span
+                      >Для сім’ї</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="gift" /><span
+                      >На подарунок</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">
+                  Скільки людей гратиме?
+                </legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="two" /><span
+                      >Двоє</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="small" /><span
+                      >3–4 людини</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="large" /><span
+                      >5 і більше</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">Скільки часу маєте?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="short" /><span
+                      >До 30 хвилин</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="medium" /><span
+                      >30–60 хвилин</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="long" /><span
+                      >Понад годину</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">Який настрій вечора?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="calm" /><span
+                      >Спокійний і вдумливий</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="party" /><span
+                      >Веселий та гучний</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="team" /><span
+                      >Командна пригода</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">
+                  Яка складність підходить?
+                </legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="easy" /><span
+                      >Прості правила</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="medium" /><span
+                      >Середня складність</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="hard" /><span
+                      >Хочу складну стратегію</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <p data-quiz-error role="alert" class="text-error"></p>
+              <div class="demo-actions">
+                <button type="button" data-quiz-back class="demo-button" disabled>
+                  Назад</button
+                ><button
+                  type="submit"
+                  data-quiz-next
+                  class="demo-button demo-button-primary"
+                >
+                  Далі
+                </button>
+              </div>
+            </div>
+            <div data-quiz-result hidden>
+              <h3 data-quiz-result-title tabindex="-1" class="demo-subtitle">
+                Ваша випадкова демо-гра
+              </h3>
+              <p class="demo-note">
+                Випадковий вибір із трьох вигаданих навчальних ігор, а не гарантія
+                відповідності відповідям.
+              </p>
+              <img
+                data-quiz-image
+                src="./assets/images/game-demo-1.svg"
+                alt=""
+                width="704"
+                height="396"
+                class="demo-result-image"
+              />
+              <h4 data-quiz-game class="demo-subtitle"></h4>
+              <p data-quiz-description class="demo-note"></p>
+              <details class="demo-panel">
+                <summary class="demo-button">Мої 5 відповідей</summary>
+                <ul data-quiz-answers class="demo-summary"></ul>
+              </details>
+              <div data-guest-only class="demo-notice">
+                <p>
+                  Сподобалася гра? Створіть локальний демо-профіль та спробуйте керування
+                  підпискою. Реєстрація необов’язкова — результат уже доступний.
+                </p>
+                <a class="demo-button demo-button-primary" href="./account.html#account"
+                  >Зареєструватися / увійти</a
+                >
+              </div>
+              <p data-member-only hidden class="demo-note">
+                Ви увійшли як <strong data-profile-name></strong>.
+                <a class="demo-button" href="./account.html#subscription"
+                  >Керувати демо-підпискою</a
+                >
+              </p>
+              <div class="demo-actions">
+                <button type="button" data-quiz-restart class="demo-button">
+                  Пройти ще раз</button
+                ><a href="./index.html#example" class="demo-button">Усі три приклади</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="demo-shell">
+      <a href="./index.html" class="demo-button">На головну</a>
+      <a href="./quiz.html" class="demo-button">Квіз</a>
+      <a href="./account.html#subscription" class="demo-button">Демо-підписка</a>
+      <p class="demo-note">
+        Навчальний сайт «Твій Хід». Лише демонстрація: без паролів, справжніх оплат,
+        замовлень і доставки.
+      </p>
+    </footer>
+  </body>
+</html>

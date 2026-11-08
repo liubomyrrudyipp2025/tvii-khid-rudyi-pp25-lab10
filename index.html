@@ -7,7 +7,7 @@
     <script src="./js/theme.js"></script>
     <meta
       name="description"
-      content="Навчальний прототип «Твій Хід»: концепція персонального підбору настільних ігор, демо першого вибору квізу та відеоматеріали. Замовлення й підписка не реалізовані."
+      content="Навчальний сайт «Твій Хід»: квіз із 5 питань, локальний демо-кабінет і керування демо-підпискою без оплати та справжніх замовлень."
     />
     <title>Твій Хід — навчальний прототип підбору настільних ігор</title>
     <link
@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="./assets/fonts/google-fonts.css" />
     <link rel="stylesheet" href="./css/custom-styles.css" />
     <link rel="stylesheet" href="./css/media-components.css" />
+    <link rel="stylesheet" href="./css/demo-service.css" />
+    <script src="./js/demo-service.js" defer></script>
     <script src="./js/demo.js" defer></script>
     <script src="./js/hero-media.js" defer></script>
     <script src="./js/validation.js" defer></script>
@@ -47,7 +49,7 @@
     </a>
 
     <header
-      class="relative z-40 border-b border-decorative bg-background desktop:sticky desktop:top-0"
+      class="site-header relative z-40 border-b border-decorative bg-background desktop:sticky desktop:top-0"
     >
       <div
         class="mx-auto flex max-w-[1248px] items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
@@ -204,7 +206,17 @@
           </nav>
         </details>
       </div>
-      <div class="mx-auto flex max-w-[1248px] justify-end px-4 pb-3 sm:px-6 lg:px-8">
+      <div
+        class="mx-auto flex max-w-[1248px] flex-wrap justify-end gap-2 px-4 pb-3 sm:px-6 lg:px-8"
+      >
+        <a
+          href="./account.html"
+          data-account-link
+          class="demo-button demo-account-shortcut"
+          >Увійти / реєстрація</a
+        ><a href="./account.html#subscription" class="demo-button demo-account-shortcut"
+          >Демо-підписка</a
+        >
         <a
           href="#example"
           aria-label="Демо-кошик: обрані приклади"
@@ -496,8 +508,8 @@
             </li>
           </ol>
           <p class="mt-6 text-sm leading-5 text-secondary">
-            Тут показано лише початок квізу. Автоматичний підбір і рекомендації в цій
-            демонстрації не реалізовані.
+            Пройдіть 5 питань і отримайте випадкову навчальну гру. Демо не замінює
+            персональних рекомендацій.
           </p>
         </div>
       </section>
@@ -724,8 +736,8 @@
             Керування Smart Select
           </h2>
           <p class="mb-6 max-w-3xl text-lg leading-7 text-secondary">
-            Огляд задуму підписки: чотири окремі дії для контролю майбутніх підборів. Це
-            пояснення концепції, а не активна підписка.
+            Спробуйте чотири дії у локальному демо-кабінеті. Це функціональна демонстрація
+            станів підписки, а не справжня платна послуга.
           </p>
           <ul class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <li class="rounded-card border border-decorative bg-surface p-6">
@@ -747,17 +759,16 @@
               <p class="text-secondary">Концепція завершення майбутньої підписки.</p>
             </li>
           </ul>
-          <button
-            type="button"
-            disabled
+          <a
+            href="./account.html#subscription"
             aria-describedby="management-note"
-            class="min-h-14 max-w-full rounded-control border border-interactive bg-hover-surface px-6 py-3 font-semibold text-secondary disabled:cursor-not-allowed"
+            class="demo-button demo-button-primary"
+            >Оформити / керувати демо-підпискою</a
           >
-            Керувати підпискою
-          </button>
           <p id="management-note" class="mt-4 text-sm leading-5 text-secondary">
-            Керування підпискою недоступне в цій демонстрації. Умови керування: Потребує
-            уточнення. Акаунта, платежів і доставки тут немає.
+            Демо-модуль уже доступний в окремому кабінеті: локальний профіль, оформлення,
+            заміна гри, пропуск, пауза й скасування. Без паролів, оплати та справжньої
+            доставки.
           </p>
         </div>
       </section>
@@ -798,63 +809,178 @@
         </div>
       </section>
 
-      <section id="quiz" class="bg-section" aria-labelledby="quiz-title">
-        <div class="mx-auto max-w-[1248px] px-4 py-16 sm:px-6 lg:px-8">
-          <div class="mx-auto max-w-3xl">
-            <p class="mb-3 text-center font-semibold text-accent">Демо початку квізу</p>
-            <h2
-              id="quiz-title"
-              class="mb-4 text-center font-heading text-2xl font-bold leading-8 sm:text-[32px] sm:leading-10"
-            >
-              З чого почнемо?
-            </h2>
-            <p class="mb-8 text-center text-lg leading-7 text-secondary">
-              Оберіть напрям першого кроку. Окремі приклади нижче статичні: їх можна
-              шукати та додавати в демо-кошик.
-            </p>
-
-            <form class="rounded-panel border border-decorative bg-surface p-6 sm:p-8">
-              <fieldset>
-                <legend class="mb-6 text-xl font-bold">
-                  Для кого шукаєте настільну гру?
-                </legend>
-                <div class="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
-                  <label
-                    data-quiz-option
-                    class="flex min-h-14 min-w-0 cursor-pointer items-center gap-3 rounded-control border border-interactive px-4 py-4 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent hover:bg-hover-surface"
+      <section id="quiz" class="demo-service bg-section" aria-labelledby="quiz-title">
+        <div class="demo-shell">
+          <p class="demo-note">Квіз із 5 питань · без реєстрації</p>
+          <h2 id="quiz-title" class="demo-title">Знайдіть ідею для ігрового вечора</h2>
+          <p class="demo-note">
+            Дайте п’ять відповідей і отримайте одну з трьох випадкових навчальних ігор. Це
+            демо, не персональний алгоритм рекомендацій. Окремі приклади нижче статичні:
+            їх можна шукати та додавати в демо-кошик.
+          </p>
+          <p>
+            <a class="demo-button" href="./quiz.html">Відкрити квіз окремою сторінкою</a>
+          </p>
+          <noscript
+            ><p class="demo-notice">
+              Для квізу потрібен JavaScript. Доступні приклади ігор є на головній
+              сторінці.
+            </p></noscript
+          >
+          <form data-full-quiz novalidate class="demo-panel">
+            <div data-quiz-fields>
+              <p data-quiz-progress role="status" class="demo-note">Питання 1 із 5</p>
+              <fieldset data-quiz-step>
+                <legend tabindex="-1" class="demo-subtitle">Для кого шукаєте гру?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="company" checked /><span
+                      >Для своєї компанії</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="family" /><span
+                      >Для сім’ї</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-0" value="gift" /><span
+                      >На подарунок</span
+                    ></label
                   >
-                    <input
-                      class="h-5 w-5 shrink-0 accent-accent"
-                      type="radio"
-                      name="quiz-purpose"
-                      value="company"
-                      checked
-                    />
-                    <span class="min-w-0 leading-6">Для своєї компанії</span>
-                  </label>
-                  <label
-                    data-quiz-option
-                    class="flex min-h-14 min-w-0 cursor-pointer items-center gap-3 rounded-control border border-interactive px-4 py-4 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent hover:bg-hover-surface"
-                  >
-                    <input
-                      class="h-5 w-5 shrink-0 accent-accent"
-                      type="radio"
-                      name="quiz-purpose"
-                      value="gift"
-                    />
-                    <span class="min-w-0 leading-6">На подарунок</span>
-                  </label>
                 </div>
               </fieldset>
-              <p
-                class="mt-6 border-t border-decorative pt-6 text-sm leading-5 text-secondary"
-              >
-                Це демо лише першого вибору. Наступного екрана й алгоритму рекомендацій
-                немає. Нижче наведено окремий макет прикладів, не обчислений результат
-                квізу. Замовлення та підписка не оформлюються.
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">
+                  Скільки людей гратиме?
+                </legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="two" /><span
+                      >Двоє</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="small" /><span
+                      >3–4 людини</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-1" value="large" /><span
+                      >5 і більше</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">Скільки часу маєте?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="short" /><span
+                      >До 30 хвилин</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="medium" /><span
+                      >30–60 хвилин</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-2" value="long" /><span
+                      >Понад годину</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">Який настрій вечора?</legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="calm" /><span
+                      >Спокійний і вдумливий</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="party" /><span
+                      >Веселий та гучний</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-3" value="team" /><span
+                      >Командна пригода</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <fieldset data-quiz-step hidden disabled>
+                <legend tabindex="-1" class="demo-subtitle">
+                  Яка складність підходить?
+                </legend>
+                <div class="demo-answers">
+                  <label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="easy" /><span
+                      >Прості правила</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="medium" /><span
+                      >Середня складність</span
+                    ></label
+                  ><label data-quiz-option class="demo-answer"
+                    ><input type="radio" name="quiz-4" value="hard" /><span
+                      >Хочу складну стратегію</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <p data-quiz-error role="alert" class="text-error"></p>
+              <div class="demo-actions">
+                <button type="button" data-quiz-back class="demo-button" disabled>
+                  Назад</button
+                ><button
+                  type="submit"
+                  data-quiz-next
+                  class="demo-button demo-button-primary"
+                >
+                  Далі
+                </button>
+              </div>
+            </div>
+            <div data-quiz-result hidden>
+              <h3 data-quiz-result-title tabindex="-1" class="demo-subtitle">
+                Ваша випадкова демо-гра
+              </h3>
+              <p class="demo-note">
+                Випадковий вибір із трьох вигаданих навчальних ігор, а не гарантія
+                відповідності відповідям.
               </p>
-            </form>
-          </div>
+              <img
+                data-quiz-image
+                src="./assets/images/game-demo-1.svg"
+                alt=""
+                width="704"
+                height="396"
+                class="demo-result-image"
+              />
+              <h4 data-quiz-game class="demo-subtitle"></h4>
+              <p data-quiz-description class="demo-note"></p>
+              <details class="demo-panel">
+                <summary class="demo-button">Мої 5 відповідей</summary>
+                <ul data-quiz-answers class="demo-summary"></ul>
+              </details>
+              <div data-guest-only class="demo-notice">
+                <p>
+                  Сподобалася гра? Створіть локальний демо-профіль та спробуйте керування
+                  підпискою. Реєстрація необов’язкова — результат уже доступний.
+                </p>
+                <a class="demo-button demo-button-primary" href="./account.html#account"
+                  >Зареєструватися / увійти</a
+                >
+              </div>
+              <p data-member-only hidden class="demo-note">
+                Ви увійшли як <strong data-profile-name></strong>.
+                <a class="demo-button" href="./account.html#subscription"
+                  >Керувати демо-підпискою</a
+                >
+              </p>
+              <div class="demo-actions">
+                <button type="button" data-quiz-restart class="demo-button">
+                  Пройти ще раз</button
+                ><a href="./index.html#example" class="demo-button">Усі три приклади</a>
+              </div>
+            </div>
+          </form>
         </div>
       </section>
 
@@ -917,7 +1043,7 @@
               aria-labelledby="demo-game-1-title"
               class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
               data-demo-card="1"
-              data-demo-title="Назва гри — приклад"
+              data-demo-title="Острів стратегів"
             >
               <img
                 alt=""
@@ -931,7 +1057,7 @@
                 class="font-heading text-2xl font-semibold leading-8 text-primary"
                 id="demo-game-1-title"
               >
-                Назва гри — приклад
+                Острів стратегів
               </h3>
               <ul class="space-y-2 text-base leading-6 text-secondary">
                 <li>Гравці: [кількість]</li>
@@ -942,7 +1068,8 @@
                 Чому ця гра для вас
               </h4>
               <p class="text-base leading-6 text-secondary">
-                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+                Вигадана навчальна гра для демонстрації квізу та демо-кошика. Вибір
+                випадковий, не персональна рекомендація.
               </p>
               <p class="text-base leading-6 text-secondary">
                 Пояснення правил: [тривалість]
@@ -961,7 +1088,7 @@
               aria-labelledby="demo-game-2-title"
               class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
               data-demo-card="2"
-              data-demo-title="Назва гри — довший приклад"
+              data-demo-title="Кодові пригоди"
             >
               <img
                 alt=""
@@ -975,7 +1102,7 @@
                 class="font-heading text-2xl font-semibold leading-8 text-primary"
                 id="demo-game-2-title"
               >
-                Назва гри — довший приклад
+                Кодові пригоди
               </h3>
               <ul class="space-y-2 text-base leading-6 text-secondary">
                 <li>Гравці: [кількість]</li>
@@ -986,7 +1113,8 @@
                 Чому ця гра для вас
               </h4>
               <p class="text-base leading-6 text-secondary">
-                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+                Вигадана навчальна гра для демонстрації квізу та демо-кошика. Вибір
+                випадковий, не персональна рекомендація.
               </p>
               <p class="text-base leading-6 text-secondary">
                 Пояснення правил: [тривалість]
@@ -1005,7 +1133,7 @@
               aria-labelledby="demo-game-3-title"
               class="flex h-full min-w-0 flex-col gap-4 rounded-card border border-decorative bg-surface p-6 font-sans"
               data-demo-card="3"
-              data-demo-title="Назва гри — приклад для вашої компанії"
+              data-demo-title="Вечір відкриттів"
             >
               <img
                 alt=""
@@ -1019,7 +1147,7 @@
                 class="font-heading text-2xl font-semibold leading-8 text-primary"
                 id="demo-game-3-title"
               >
-                Назва гри — приклад для вашої компанії
+                Вечір відкриттів
               </h3>
               <ul class="space-y-2 text-base leading-6 text-secondary">
                 <li>Гравці: [кількість]</li>
@@ -1030,7 +1158,8 @@
                 Чому ця гра для вас
               </h4>
               <p class="text-base leading-6 text-secondary">
-                Тут з’явиться пояснення рекомендації на основі відповідей користувача.
+                Вигадана навчальна гра для демонстрації квізу та демо-кошика. Вибір
+                випадковий, не персональна рекомендація.
               </p>
               <p class="text-base leading-6 text-secondary">
                 Пояснення правил: [тривалість]
@@ -1123,7 +1252,8 @@
                   Чи можна вже замовити гру або підписку?
                 </summary>
                 <p class="mt-4 text-lg leading-7 text-secondary">
-                  Ні. Це навчальний прототип: замовлення та підписка не оформлюються.
+                  Справжні замовлення й оплата недоступні. У демо-кабінеті можна локально
+                  оформити й змінювати демо-підписку.
                 </p>
               </details>
               <details class="rounded-card border border-decorative bg-surface p-6">
@@ -1133,8 +1263,8 @@
                   Чи квіз уже видає рекомендацію?
                 </summary>
                 <p class="mt-4 text-lg leading-7 text-secondary">
-                  Ні. Доступний тільки початок демо з вибором «для своєї компанії» або «на
-                  подарунок». Алгоритм і результати не реалізовані.
+                  Так. Квіз містить п’ять питань і показує одну випадкову вигадану
+                  демо-гру з трьох. Це не персональний алгоритм рекомендацій.
                 </p>
               </details>
               <details class="rounded-card border border-decorative bg-surface p-6">
@@ -1145,7 +1275,8 @@
                 </summary>
                 <p class="mt-4 text-lg leading-7 text-secondary">
                   Це концепція підписки, що має враховувати дублікати й допомагати з
-                  добором ігор. Робота підписки та її умови в прототипі не реалізовані.
+                  добором ігор. У кабінеті реалізовано локальну демонстрацію керування
+                  підпискою без оплати.
                 </p>
               </details>
               <details class="rounded-card border border-decorative bg-surface p-6">
@@ -1206,7 +1337,8 @@
           </h2>
           <p class="mt-4 max-w-3xl text-lg leading-7 text-primary">
             Вкажіть кількість учасників і доступний час, щоб побачити навчальний
-            розрахунок раундів і груп.
+            розрахунок раундів і груп. Результат оновлюється автоматично під час введення.
+            Кнопка «Скинути параметри» повертає початкові значення.
           </p>
 
           <div class="mt-8 grid min-w-0 gap-6 lg:grid-cols-2 lg:items-start">
@@ -1362,7 +1494,7 @@
                     data-planner-reset
                     class="min-h-[48px] rounded-control border border-interactive bg-surface px-5 py-3 text-primary hover:bg-hover-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   >
-                    Скинути
+                    Скинути параметри
                   </button>
                 </div>
               </fieldset>
@@ -2088,8 +2220,8 @@
         >
           <p>© 2026 «Твій Хід» · ЛР10</p>
           <p class="max-w-2xl">
-            Навчальний прототип: початок квізу, локальний пошук і демо-кошик. Автоматичний
-            підбір, замовлення та підписка не реалізовані.
+            Навчальний прототип: квіз із 5 питань, локальний пошук, демо-кошик і
+            демо-підписка. Справжні замовлення та оплата не реалізовані.
           </p>
         </div>
       </div>

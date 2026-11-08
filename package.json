@@ -4,8 +4,8 @@
   "private": true,
   "description": "Навчальний лендинг «Твій Хід» — ЛР10: динамічні медіакомпоненти та успадкована навчальна форма",
   "scripts": {
-    "format": "prettier --write index.html css/custom-styles.css css/media-components.css js/demo.js js/hero-media.js js/theme.js js/media-components.js js/widget.js tailwind.config.cjs scripts/*.cjs",
-    "format:check": "prettier --check index.html css/custom-styles.css css/media-components.css js/demo.js js/hero-media.js js/theme.js js/media-components.js js/widget.js tailwind.config.cjs scripts/*.cjs",
+    "format": "prettier --write index.html account.html quiz.html css/demo-service.css js/demo-service.js css/custom-styles.css css/media-components.css js/demo.js js/hero-media.js js/theme.js js/media-components.js js/widget.js tailwind.config.cjs scripts/*.cjs",
+    "format:check": "prettier --check index.html account.html quiz.html css/demo-service.css js/demo-service.js css/custom-styles.css css/media-components.css js/demo.js js/hero-media.js js/theme.js js/media-components.js js/widget.js tailwind.config.cjs scripts/*.cjs",
     "build": "node scripts/build.cjs",
     "package:dist": "npm run build && node scripts/package-dist.cjs",
     "test": "python -m unittest discover -s tests -v"

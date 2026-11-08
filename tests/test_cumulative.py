@@ -71,13 +71,12 @@ class CumulativeContent(unittest.TestCase):
         for field in ['Ціна','Склад бокса','Умови']:
             self.assertEqual(terms.count(field),3)
         self.assertGreaterEqual(terms.count('Потребує уточнення'),9)
-    def test_smart_select_has_four_concept_actions_and_disabled_management(self):
+    def test_smart_select_has_four_actions_and_visible_local_demo_management(self):
         tree=section('smart-select');text=' '.join(' '.join(tree.text).split())
         for action in ['Заміна гри','Пропуск доставки','Призупинення','Скасування']:
             self.assertIn(action,text)
-        buttons=[a for t,a in tree.nodes if t=='button']
-        self.assertEqual(len(buttons),1)
-        self.assertIn('disabled',buttons[0])
-        self.assertIn('недоступне',text)
-        self.assertIn('Потребує уточнення',text)
+        links=[a for t,a in tree.nodes if t=='a']
+        self.assertTrue(any(a.get('href')=='./account.html#subscription' for a in links))
+        self.assertIn('локальному',text)
+        self.assertIn('Без паролів, оплати та справжньої доставки.',text)
 if __name__=='__main__':unittest.main()

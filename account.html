@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Квіз із п’яти питань і локальний демо-кабінет Твій Хід — без паролів, платежів і справжніх замовлень."
+    />
+    <script src="./js/theme.js"></script>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./css/tailwind.css" />
+    <link rel="stylesheet" href="./assets/fonts/google-fonts.css" />
+    <link rel="stylesheet" href="./css/custom-styles.css" />
+    <link rel="stylesheet" href="./css/demo-service.css" />
+    <script src="./js/demo.js" defer></script>
+    <script src="./js/demo-service.js" defer></script>
+    <title>Демо-кабінет і підписка — Твій Хід</title>
+  </head>
+  <body class="bg-background text-primary">
+    <header
+      class="site-header relative z-40 border-b border-decorative bg-background desktop:sticky desktop:top-0"
+    >
+      <div
+        class="mx-auto flex max-w-[1248px] items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
+      >
+        <a
+          class="inline-flex min-h-11 min-w-0 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent lg:shrink-0"
+          href="./index.html#home"
+          aria-label="Твій Хід — на головну"
+        >
+          <img
+            data-brand-logo
+            class="h-auto max-h-9 w-auto max-w-full"
+            src="./assets/images/logo.svg"
+            width="144"
+            height="36"
+            alt="Твій Хід"
+          />
+        </a>
+
+        <nav
+          class="hidden min-w-0 items-center gap-2 lg:flex"
+          aria-label="Основна навігація"
+        >
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#how-it-works"
+            >Як це працює</a
+          >
+          <details data-service-menu class="relative">
+            <summary
+              class="min-h-11 cursor-pointer rounded-control px-3 py-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              Сервіс
+            </summary>
+            <nav
+              aria-label="Розділи сервісу"
+              class="absolute left-0 top-full z-20 mt-2 flex w-64 flex-col gap-1 rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#benefits"
+                >Переваги</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#plans"
+                >Формати сервісу</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#about"
+                >Про сервіс</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#faq"
+                >Запитання й відповіді</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#smart-select"
+                >Керування Smart Select</a
+              >
+              <a
+                class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                href="./index.html#example"
+                >Демонстраційні приклади</a
+              >
+            </nav>
+          </details>
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#feedback"
+            >Зворотний зв’язок</a
+          >
+          <a
+            class="rounded-control px-2 py-3 text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href="./index.html#contacts"
+            >Контакти</a
+          >
+        </nav>
+
+        <a
+          class="hidden min-h-14 shrink-0 items-center justify-center rounded-control bg-accent px-6 py-3 font-semibold text-background transition duration-180 hover:bg-cta-hover hover:shadow-[shadow:var(--shadow-low)] focus-visible:shadow-[shadow:var(--shadow-low)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent active:bg-cta-pressed motion-reduce:transition-none lg:inline-flex"
+          href="./index.html#quiz"
+        >
+          Підібрати гру
+        </a>
+
+        <button id="themeToggle" type="button" class="theme-toggle" aria-pressed="false">
+          Світла тема
+        </button>
+        <details data-mobile-menu class="relative shrink-0 lg:hidden">
+          <summary
+            class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-control border border-interactive px-3 text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            <span class="sr-only">Відкрити меню</span>
+            <span aria-hidden="true" class="text-2xl leading-none">☰</span>
+          </summary>
+          <nav
+            class="absolute right-0 top-full z-20 mt-2 flex max-h-[calc(100dvh-6rem)] w-[min(18rem,calc(100vw-2rem))] flex-col gap-1 overflow-y-auto rounded-panel border border-decorative bg-surface p-3 shadow-[shadow:var(--shadow-raised)]"
+            aria-label="Мобільна навігація"
+          >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#how-it-works"
+              >Як це працює</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#benefits"
+              >Переваги</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#plans"
+              >Формати сервісу</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#about"
+              >Про сервіс</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#faq"
+              >Запитання й відповіді</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#smart-select"
+              >Керування Smart Select</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#example"
+              >Демонстраційні приклади</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#feedback"
+              >Зворотний зв’язок</a
+            >
+            <a
+              class="min-h-11 rounded-control px-3 py-3 text-secondary hover:bg-hover-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="./index.html#contacts"
+              >Контакти — карта Львова</a
+            >
+            <a
+              class="mt-2 inline-flex min-h-14 items-center justify-center rounded-control bg-accent px-4 py-3 font-semibold text-background transition duration-180 hover:bg-cta-hover hover:shadow-[shadow:var(--shadow-low)] focus-visible:shadow-[shadow:var(--shadow-low)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent active:bg-cta-pressed motion-reduce:transition-none"
+              href="./index.html#quiz"
+              >Підібрати гру</a
+            >
+          </nav>
+        </details>
+      </div>
+      <div
+        class="mx-auto flex max-w-[1248px] flex-wrap justify-end gap-2 px-4 pb-3 sm:px-6 lg:px-8"
+      >
+        <a
+          href="./account.html"
+          data-account-link
+          class="demo-button demo-account-shortcut"
+          >Увійти / реєстрація</a
+        ><a href="./account.html#subscription" class="demo-button demo-account-shortcut"
+          >Демо-підписка</a
+        >
+        <a
+          href="./index.html#example"
+          aria-label="Демо-кошик: обрані приклади"
+          class="inline-flex min-h-11 items-center gap-2 rounded-control border border-interactive bg-surface px-4 py-2 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        >
+          Демо-кошик:
+          <span
+            data-cart-count
+            aria-live="polite"
+            aria-atomic="true"
+            class="font-semibold"
+            >0</span
+          ><span class="text-secondary">/ 3 приклади</span>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section
+        id="account"
+        class="demo-service demo-shell"
+        aria-labelledby="account-title"
+      >
+        <h1 id="account-title" class="demo-title">Локальний демо-кабінет</h1>
+        <p class="demo-notice">
+          Це навчальна демонстрація: тільки псевдонім, без пароля, електронної пошти,
+          платежів і справжніх замовлень. Профілі зберігаються в цьому браузері; будь-хто
+          з доступом до нього може їх відкрити. Не вводьте персональних даних. Це не
+          захищена автентифікація.
+        </p>
+        <p data-storage-warning hidden class="demo-notice">
+          Браузер заблокував зберігання: демо працюватиме лише до оновлення сторінки.
+        </p>
+        <p data-service-message role="status" aria-live="polite" class="demo-status"></p>
+        <div data-guest-only class="demo-columns">
+          <form data-register-form class="demo-panel">
+            <h2 class="demo-subtitle">Створити демо-профіль</h2>
+            <label for="demo-name">Вигаданий псевдонім (2–40 символів)</label
+            ><input
+              id="demo-name"
+              data-register-name
+              class="demo-input"
+              minlength="2"
+              maxlength="40"
+              required
+              autocomplete="off"
+            /><button class="demo-button demo-button-primary" type="submit">
+              Зареєструвати демо-профіль
+            </button>
+          </form>
+          <form data-login-form class="demo-panel">
+            <h2 class="demo-subtitle">Увійти локально</h2>
+            <label for="demo-profile">Раніше створений профіль</label
+            ><select id="demo-profile" data-profile-select class="demo-input" required>
+              <option value="">Оберіть локальний профіль</option>
+            </select>
+            <p class="demo-note">
+              Інший браузер або телефон має власні профілі. Синхронізації немає.
+            </p>
+            <button data-login-button type="submit" class="demo-button" disabled>
+              Увійти
+            </button>
+          </form>
+        </div>
+        <div data-member-only hidden class="demo-panel">
+          <h2 data-profile-heading tabindex="-1" class="demo-subtitle">
+            Вітаємо, <span data-profile-name></span>!
+          </h2>
+          <p class="demo-note">Демо-вхід активний у цьому браузері.</p>
+          <div class="demo-actions">
+            <button data-logout type="button" class="demo-button">Вийти</button
+            ><a href="./quiz.html" class="demo-button">Пройти квіз</a
+            ><a href="#subscription" class="demo-button demo-button-primary"
+              >Моя демо-підписка</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        id="subscription"
+        class="demo-service demo-shell"
+        aria-labelledby="subscription-title"
+      >
+        <h2 id="subscription-title" class="demo-title">
+          Оформлення та керування демо-підпискою
+        </h2>
+        <p class="demo-note">
+          Усі дії нижче локальні: гроші не списуються, товари не замовляються, справжня
+          доставка не планується. Перевірте стани активна → пауза → відновлення →
+          скасування.
+        </p>
+        <p data-subscription-status role="status" class="demo-notice"></p>
+        <p data-guest-only>
+          <a class="demo-button demo-button-primary" href="#account"
+            >Спочатку зареєструватися / увійти</a
+          >
+        </p>
+        <div data-enroll-panel class="demo-panel">
+          <form data-enroll-form>
+            <label for="demo-plan" class="demo-subtitle"
+              >Оберіть демо-формат (безкоштовна імітація)</label
+            ><select id="demo-plan" data-plan-select class="demo-input">
+              <option value="standard">Стандартний демо-бокс</option>
+              <option value="family">Сімейний демо-бокс</option>
+              <option value="company">Демо-бокс для компанії</option>
+            </select>
+            <div class="demo-actions">
+              <button
+                data-enroll-button
+                type="submit"
+                class="demo-button demo-button-primary"
+                disabled
+              >
+                Оформити демо-підписку — без оплати
+              </button>
+            </div>
+          </form>
+        </div>
+        <div data-subscription-controls hidden class="demo-panel">
+          <dl class="demo-facts">
+            <dt>Формат</dt>
+            <dd data-subscription-plan></dd>
+            <dt>Наступна гра</dt>
+            <dd data-subscription-game></dd>
+            <dt>Демо-доставка</dt>
+            <dd data-next-delivery></dd>
+          </dl>
+          <div class="demo-actions">
+            <button data-sub-replace type="button" class="demo-button">
+              Замінити гру</button
+            ><button data-sub-skip type="button" class="demo-button">
+              Пропустити наступний демо-бокс</button
+            ><button data-sub-pause type="button" class="demo-button">
+              Призупинити демо-підписку</button
+            ><button data-sub-cancel type="button" class="demo-button">
+              Скасувати демо-підписку
+            </button>
+          </div>
+          <p class="demo-note">
+            Заміна й пропуск доступні для активної демо-підписки. Після скасування можна
+            оформити її заново.
+          </p>
+        </div>
+        <div class="demo-panel">
+          <h3 class="demo-subtitle">Локальні дані</h3>
+          <p class="demo-note">
+            Видаляються тільки демо-профілі та їхні підписки, не тема сайту й не інші дані
+            браузера.
+          </p>
+          <button data-clear-demo type="button" class="demo-button">
+            Очистити локальні демо-дані
+          </button>
+          <div data-clear-confirm hidden class="demo-notice">
+            <p>Видалити всі локальні демо-профілі та підписки?</p>
+            <div class="demo-actions">
+              <button data-clear-yes type="button" class="demo-button">
+                Так, видалити демо-дані</button
+              ><button data-clear-no type="button" class="demo-button">
+                Ні, залишити
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="demo-shell">
+      <a href="./index.html" class="demo-button">На головну</a>
+      <a href="./quiz.html" class="demo-button">Квіз</a>
+      <a href="./account.html#subscription" class="demo-button">Демо-підписка</a>
+      <p class="demo-note">
+        Навчальний сайт «Твій Хід». Лише демонстрація: без паролів, справжніх оплат,
+        замовлень і доставки.
+      </p>
+    </footer>
+  </body>
+</html>
